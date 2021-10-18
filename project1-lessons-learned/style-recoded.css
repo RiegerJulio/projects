@@ -1,0 +1,146 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-style: helvetica, sans-serif;
+}
+
+h2{
+  background-color: black;
+  color: white;
+  padding: 5px;
+  display: inline-block;
+}
+
+header{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: black;
+  color: white;
+  z-index: 1;
+}
+
+#titulo{
+  position: relative;
+  font-size: 20px;
+  margin: 20px;
+  left: 130px;
+}
+
+.arrow-up{
+  position: fixed;
+  float: right;
+  right: 200px;
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  top: 15px;
+  z-index: 1;
+}
+
+#sobre-mim{
+  border-bottom: 1px solid ;
+  position: relative;
+  top: 100px;
+  height: 300px;
+}
+
+section h1{
+  text-align: center;
+  font-size: 30px;
+}
+
+img{
+  position:relative;
+  left: 21%;
+  width: 200px;
+  display: inline-block;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+table{
+  font-size: 20px;
+  position: relative;
+  border: 1px solid black;
+  left: 65%;
+  bottom: 180px;
+  padding: 20px;
+}
+
+main{
+  position: relative;
+  top: 120px;
+}
+
+.all-lessons{
+  padding: 20px;
+  text-align: center;
+}
+
+.lessons-learned{
+  width: 40%;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-right: 50px;
+}
+
+.to-be-learned{
+  width: 40%;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-left: 50px;
+}
+
+
+ul{
+  list-style: none;
+  margin-top: 20px;
+}
+
+li{
+  margin: 10px;
+}
+
+.articles{
+  border-bottom: 1px solid black;
+  text-align: center;
+  padding: 20px;
+}
+
+.articles p{
+  margin-top: 30px;
+}
+
+.lado-esquerdo{
+  position: relative;
+  width: 40%;
+  display: inline-block;
+  text-align: center;
+  margin-right: 50px;
+}
+
+.lado-direito{
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  text-align: center;
+  margin-left: 50px;
+}
+
+footer{
+  position: relative;
+  text-align: center;
+  color: white;
+  background-color: black;
+  top: 270px;
+}
+
+a{
+  color: white;
+}
