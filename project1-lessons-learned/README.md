@@ -14,7 +14,7 @@
 Esse projeto foi Re-Estilizado após a realização dele. A reestilização focou na estética e não nos requisitos dos projetos. Os arquivos com os requisitos completos são o index.html e o style.css e os reestilizados são o index-recoded.html e style-recoded.html .
 
 <h2>Resultado</h2>
-![projeto1](images/lessons-learned.png)
+![projeto1](lessons-learned.png)
 
 <h2>Requisitos</h2>
 
