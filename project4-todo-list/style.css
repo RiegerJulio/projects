@@ -1,0 +1,41 @@
+body {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-size: 20px;
+}
+
+.selected {
+  background-color: rgb(128,128,128);
+}
+
+.completed {
+  text-decoration: line-through solid rgb(0, 0, 0);
+}
+
+.tasks {
+    border: 1px solid white;
+    width: 50%;
+    position: relative;
+    left: 24%;
+    top: 20px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.tasks li {
+  padding-top: 10px;
+}
+
+input {
+  font-size: 20px;
+}
+
+button {
+  padding: 15px;
+  font-size: 15px;
+}
