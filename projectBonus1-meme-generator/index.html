@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Meme Generator</title>
+</head>
+<body>
+  <header><h1>Meme Generator</h1>
+  </header>
+  <section id="text-and-info-container">
+    <h2>Insira seu texto abaixo!</h2>
+    <input type="text" id="text-input" maxlength="60">
+    <!-- ref: https://developers.google.com/web/fundamentals/media/capturing-images aprendendo a puxar imagem do pc-->
+    <input id="meme-insert" type="file" accept="image/*"> 
+  </section>
+  <section id="meme-image-container">
+    <p id="meme-text"></p>
+    <img src="" id="meme-image">
+  </section>
+   <section id="btn-config">
+     <button id="fire">fire</button>
+     <button id="water">water</button>
+     <button id="earth">earth</button>
+   </section>
+  <section id ='famous-img'>
+    <img id="meme-1" src="imgs/meme1.png" alt="meme1">
+    <img id="meme-2" src="imgs/meme2.png" alt="meme2">
+    <img id="meme-3" src="imgs/meme3.png" alt="meme3">
+    <img id="meme-4" src="imgs/meme4.png" alt="meme4">
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
