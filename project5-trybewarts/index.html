@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Trybewarts</title>
+</head>
+
+<body>
+  <header class="header">
+    <img src="images/trybewarts-header-logo.svg" alt="logo header" class="trybewarts-header-logo">
+    <h1 id="trybewarts-header-title">Trybewarts</h1>
+    <form action="" class="trybewarts-login">
+      <input type="email" placeholder="Email" name="email" id="input-email-login">
+      <input type="password" placeholder="Senha" name="password" id="input-senha">
+      <a class="waves-effect waves-light btn btn-entrar">Entrar</a>
+    </form>
+  </header>
+
+  <main>
+    <form action="" id="evaluation-form">
+      <div>
+        <div class="input-field col s6">
+          <input placeholder="Nome" id="input-name" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <input placeholder="Sobrenome" id="input-lastname" type="text" class="validate">
+        </div>
+      </div>
+
+      <!-- Requisito 11 - posicionamento BUGADO -->
+      <div class="row email-casa">
+        <div class="input-field col s6">
+          <input placeholder="Email" id="input-email" type="email" class="validate">
+          <label htmlFor="input-email"></label>
+        </div>
+        <div class="input-field col s6">
+          <select name="Casa" id="house">
+            <option text="Gitnória" value="Gitnória" id="gitnoria-house">Gitnória</option>
+            <option value="Reactpuff" text="Reactpuff" id="reactpuff-house">Reactpuff</option>
+            <option value="Corvinode" text="Corvinode" id="corvinode-house">Corvinode</option>
+            <option value="Pytherina" text="Pytherina" id="pytherina-house">Pytherina</option>
+          </select>
+          <label htmlFor="house">Casa :</label>
+        </div>
+      </div>
+
+      <!-- ERRO NO REQUISITO 12 e 13. NÃO ESTAO ALINHADOS EMBORA ESTEJA -->
+      <div class="row sel-cbx">
+        <div class="radio-button col s6">
+          <label id="label-family">Qual sua família?</label>
+          <label>
+            <input name="family" type="radio" value="Frontend" />
+            <span>Família Frontend</span>
+          </label>
+
+          <label>
+            <input name="family" type="radio" value="Backend" />
+            <span>Família Backend</span>
+          </label>
+
+          <label>
+            <input name="family" type="radio" value="FullStack" />
+            <span>Família FullStack</span>
+          </label>
+        </div>
+        <div class="checkbox col s6">
+          <label id="label-content">Qual conteúdo você está com mais vontade de aprender?</label>
+          <div class="checkbox-container cbx">
+            <label>
+              <input type="checkbox" value="HoFs" class="cbx" />
+              <span>HoFs</span>
+            </label>
+            <label>
+              <input type="checkbox" value="Jest" class="cbx"/>
+              <span>Jest</span>
+            </label>
+            <label>
+              <input type="checkbox" value="Promises" class="cbx"/>
+              <span>Promises</span>
+            </label>
+            <label>
+              <input type="checkbox" value="React" class="cbx"/>
+              <span>React</span>
+            </label>
+            <label>
+              <input type="checkbox" value="SQL" class="cbx"/>
+              <span>SQL</span>
+            </label>
+            <label>
+              <input type="checkbox" value="Python" class="cbx"/>
+              <span>Python</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label id="label-rate">Como você avalia a Trybewarts?</label>
+        <label>
+          <input value="1" name="rate" name="group1" type="radio" />
+          <span>1</span>
+        </label>
+        <label>
+          <input value="2" name="rate" name="group1" type="radio" />
+          <span>2</span>
+        </label>
+        <label>
+          <input value="3" name="rate" name="group1" type="radio" />
+          <span>3</span>
+        </label>
+        <label>
+          <input value="4" name="rate" name="group1" type="radio" />
+          <span>4</span>
+        </label>
+        <label>
+          <input value="5" name="rate" name="group1" type="radio" />
+          <span>5</span>
+        </label>
+        <label>
+          <input value="6" name="rate" name="group1" type="radio" />
+          <span>6</span>
+        </label>
+        <label>
+          <input value="7" name="rate" name="group1" type="radio" />
+          <span>7</span>
+        </label>
+        <label>
+          <input value="8" name="rate" name="group1" type="radio" />
+          <span>8</span>
+        </label>
+        <label>
+          <input value="9" name="rate" name="group1" type="radio" />
+          <span>9</span>
+        </label>
+        <label>
+          <input value="10" name="rate" name="group1" type="radio" />
+          <span>10</span>
+        </label>
+
+      </div>
+      <div class="input-field col s12">
+        <textarea id="textarea1 textarea" class="materialize-textarea" maxlength="500"></textarea>
+        <label for="textarea1" class="textarea">Deixe seu comentário:</label>
+      </div>
+      <div class="col s12">
+        <label id="label-infos" for="agreement">
+          <input id="agreement" type="checkbox">
+          <span>Você concorda com o uso das informações acima?</span>
+        </label>
+      </div>
+        <button class="waves-effect waves-light btn btn-send" id="submit-btn" type="submit" disabled>Enviar</button>
+    </form>
+    <img src="images/trybewarts-colored.svg" alt="logo trybe warts" id="trybewarts-forms-logo">
+  </main>
+  <footer>
+    <p>Direitos reservados à Trybewarts©</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
