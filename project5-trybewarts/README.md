@@ -1,4 +1,4 @@
-<h1>Bem vindo ao repositório do projeto Lessons Learned</h1>
+<h1>Bem vindo ao repositório do projeto Trybewarts</h1>
 
 <h3>English Version Avaiable soon</h3>
 
