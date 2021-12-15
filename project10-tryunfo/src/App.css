@@ -1,0 +1,137 @@
+h1 {
+  background-color: purple;
+  /* display: block; */
+  text-align: center;
+  color: white;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  /* grid-template-rows: 0.2fr 2.8fr; */
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Form Preview"
+    "cards cards";
+  margin-top: 50px;
+}
+
+.form {
+  grid-area: Form;
+  justify-self: center;
+}
+
+.form label{
+  background-color: purple;
+  color: white;
+  font-weight: 500;
+}
+
+.form input, select {
+  margin-left: 30px;
+}
+
+.preview {
+  grid-area: Preview;
+  justify-self: center;
+}
+
+.full-card {
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 210px 210px 80px;
+  grid-template-areas: "image" "text" "stats";
+  border-radius: 18px;
+  background: white;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+  font-family: roboto;
+  text-align: center;
+  /* width: 300px; */
+}
+
+.top-side {
+  grid-area: image;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+  align-self: center;
+}
+
+img {
+  border-radius: 18px;
+  /* width: 300px;
+  height: 210px; */
+  max-width: 300px;
+  max-height: 210px;
+}
+
+.mid-side {
+  grid-area: text;
+  margin: 20px;
+}
+
+.mid-side .rarity {
+  color: purple;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.mid-side p {
+  color: rgb(26, 0, 0);
+  font-size:15px;
+}
+
+.mid-side h2 {
+  margin-top:0px;
+  font-size:28px;
+}
+
+.bot-side {
+  grid-area: stats; 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background: purple;
+}
+
+.bot-side .attr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+
+
+.cards {
+  display: flex;
+  grid-area: cards;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  /* border: 1px solid pink;  */
+  margin-top: 20px;
+  padding: 20px;
+  row-gap: 30px;
+}
+
+.btn {
+  border: black;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+  background-color: purple;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#w {
+  font-weight: 500;
+  text-align: center;
+}
+
+#border {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
