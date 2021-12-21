@@ -97,7 +97,7 @@ class App extends React.Component {
     const { savedCard } = this.state;
     return (
       <div>
-        <h1>Super Trunfo Gradivindos Edition</h1>
+        <h1>Super Trunfo Gradivinhos Edition</h1>
         <div className="container">
           <div className="form">
             <Form
