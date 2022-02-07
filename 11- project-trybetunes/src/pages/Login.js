@@ -44,27 +44,32 @@ export default class Login extends Component {
         {loading ? (
           <Loading />
         ) : (
-          <form>
-            <label htmlFor="username">
-              Nome
-              <input
-                data-testid="login-name-input"
-                type="text"
-                name="name"
-                value={ name }
-                onChange={ this.handleChange }
-                required
-              />
-            </label>
-            <button
-              type="submit"
-              data-testid="login-submit-button"
-              disabled={ name.length <= 2 }
-              onClick={ this.handleClick }
-            >
-              Entrar
-            </button>
-          </form>
+          <div className="login-page">
+            <h1 className="spotify">iSpotifai</h1>
+            <form className="form-input">
+              <p>Login</p>
+              <label htmlFor="username">
+                <input
+                  className="input-field"
+                  data-testid="login-name-input"
+                  type="text"
+                  name="name"
+                  value={ name }
+                  onChange={ this.handleChange }
+                  required
+                />
+              </label>
+              <button
+                className="btn btn-outline-light"
+                type="submit"
+                data-testid="login-submit-button"
+                disabled={ name.length <= 2 }
+                onClick={ this.handleClick }
+              >
+                Entrar
+              </button>
+            </form>
+          </div>
         )}
         {
           loginCheck ? <Redirect to="/search" /> : ''
