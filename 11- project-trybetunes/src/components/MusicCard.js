@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import '../pages/css/favorites.css';
+
 export default class MusicCard extends Component {
   handleChange = ({ target }) => {
     const { addSong, song } = this.props;
