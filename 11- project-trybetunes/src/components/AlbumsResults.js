@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import '../pages/css/search.css';
+
 export default class AlbumsResult extends Component {
   render() {
     const { albums } = this.props;
@@ -14,15 +16,19 @@ export default class AlbumsResult extends Component {
         data-testid={ `link-to-album-${collectionId}` }
         to={ `/album/${collectionId}` }
       >
-        <div>
-          <span>{ artistName }</span>
-          <img src={ artworkUrl100 } alt={ `Album ${collectionName}` } />
+        <div className="artist-result">
+          <span className="artist-title">{ artistName }</span>
+          <img
+            src={ artworkUrl100 }
+            alt={ `Album ${collectionName}` }
+            className="album-art"
+          />
           <span>{ collectionName }</span>
         </div>
       </Link>
     ));
     return (
-      <div>
+      <div className="artist-gallery">
         {artists}
       </div>
     );

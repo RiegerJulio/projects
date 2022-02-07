@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 import AlbumsResult from '../components/AlbumsResults';
+import './css/search.css';
 
 export default class Search extends Component {
   constructor() {
@@ -52,8 +53,9 @@ export default class Search extends Component {
         ) : (
           <section data-testid="page-search">
             <form>
-              <label htmlFor="search-artist-input">
+              <label htmlFor="search-artist-input" className="search-engine">
                 <input
+                  className="search-field"
                   type="text"
                   name="input"
                   data-testid="search-artist-input"
@@ -61,6 +63,7 @@ export default class Search extends Component {
                   onChange={ this.handleChange }
                 />
                 <input
+                  className="btn btn-outline-light"
                   type="button"
                   data-testid="search-artist-button"
                   value="Pesquisar"
@@ -69,11 +72,10 @@ export default class Search extends Component {
                 />
               </label>
             </form>
-            <h1>
+            <h2 className="album-results">
               {content.length === 0 ? ''
                 : `Resultado de álbuns de: ${content}`}
-            </h1>
-            Search
+            </h2>
           </section>
         )}
         <main>{results ? fetchResults : ''}</main>

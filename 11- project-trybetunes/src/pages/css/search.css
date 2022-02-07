@@ -1,0 +1,70 @@
+.header{
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  padding: 1rem
+}
+
+.header-name {
+  color: #1db954;
+  text-align: center;
+}
+
+.search-engine {
+  display: flex;
+  flex-direction: column;
+  padding-right: 7vw;
+  padding-left: 7vw;
+}
+
+.search-field {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.btn-outline-light {
+  align-self: center;
+  width: 100%;
+}
+
+.album-results {
+  text-align: center;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  font-size: 1.2rem;
+}
+
+.artist-result {
+  /* border: 1px solid white; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  width: 50vw;
+}
+
+a {
+  text-decoration: none;
+}
+
+.album-art {
+  width: 100px;
+}
+
+.artist-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.artist-title {
+  color: #1db954;
+}
