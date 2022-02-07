@@ -7,6 +7,8 @@ import { getFavoriteSongs, addSong, removeSong } from '../services/favoriteSongs
 import MusicCard from '../components/MusicCard';
 import Loading from '../components/Loading';
 
+import './css/album.css';
+
 export default class Album extends Component {
   constructor() {
     super();
@@ -67,7 +69,7 @@ export default class Album extends Component {
         {loading ? (
           <Loading />
         ) : (
-          <main data-testid="page-album">
+          <main data-testid="page-album" className="page-album">
             <AlbumInfos album={ artistInfo } />
             {musicList.map((music) => (
               <MusicCard

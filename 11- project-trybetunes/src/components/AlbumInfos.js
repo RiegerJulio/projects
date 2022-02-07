@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 export default class AlbumInfos extends Component {
   render() {
-    const { album: { artistName, collectionName } } = this.props;
+    const { album: { artistName, collectionName, artworkUrl100 } } = this.props;
     return (
-      <div>
-        <h2 data-testid="artist-name">{ artistName }</h2>
+      <div className="album-and-name">
+        <h2 data-testid="artist-name" className="artist-name">{ artistName }</h2>
         <h2 data-testid="album-name">{ collectionName }</h2>
+        <img src={ artworkUrl100 } alt={ `Album ${collectionName}` } />
       </div>
     );
   }
@@ -17,5 +18,6 @@ AlbumInfos.propTypes = {
   album: PropTypes.shape({
     artistName: PropTypes.string,
     collectionName: PropTypes.string,
+    artworkUrl100: PropTypes.string,
   }).isRequired,
 };

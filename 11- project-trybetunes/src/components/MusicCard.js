@@ -10,15 +10,17 @@ export default class MusicCard extends Component {
   render() {
     const { song: { trackName, previewUrl, trackId }, checked } = this.props;
     return (
-      <div>
-        <span>{ trackName }</span>
+      <div className="music-box">
+        <span className="track-name">{ trackName }</span>
         <audio data-testid="audio-component" src={ previewUrl } controls>
           <track kind="captions" />
           O seu navegador não suporta o elemento
           <code>audio</code>
         </audio>
         <label data-testid={ `checkbox-music-${trackId}` } htmlFor={ `track-${trackId}` }>
+          <span>Favoritar</span>
           <input
+            className="checkbox"
             type="checkbox"
             checked={ checked }
             value={ trackId }
