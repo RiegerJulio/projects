@@ -12,7 +12,7 @@ class TableExpenses extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table>
+      <table className="table-content">
         <thead>
           <tr>
             <th>Valor</th>
@@ -41,6 +41,7 @@ class TableExpenses extends Component {
                 <td>Real</td>
                 <td>
                   <button
+                    className="btn btn-dark"
                     data-testid="delete-btn"
                     type="button"
                     onClick={ (event) => this.deleteExpense(event) }

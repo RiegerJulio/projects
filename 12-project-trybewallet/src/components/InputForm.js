@@ -5,16 +5,18 @@ export default class InputForm extends Component {
   render() {
     const { label, name, testid, type, onChange, value } = this.props;
     return (
-      <label htmlFor={ testid }>
-        {label}
-        <input
-          name={ name }
-          type={ type }
-          onChange={ onChange }
-          value={ value }
-          data-testid={ testid }
-        />
-      </label>
+      <>
+        <span>{label}</span>
+        <label htmlFor={ testid }>
+          <input
+            name={ name }
+            type={ type }
+            onChange={ onChange }
+            value={ value }
+            data-testid={ testid }
+          />
+        </label>
+      </>
     );
   }
 }

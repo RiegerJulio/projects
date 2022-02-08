@@ -5,22 +5,24 @@ export default class SelectForm extends Component {
   render() {
     const { label, name, testid, options, onChange, value, id } = this.props;
     return (
-      <label htmlFor={ id }>
-        {label}
-        <select
-          name={ name }
-          onChange={ onChange }
-          value={ value }
-          data-testid={ testid }
-          id={ id }
-        >
-          {options.map((option) => (
-            <option key={ option } value={ option }>
-              { option }
-            </option>
-          ))}
-        </select>
-      </label>
+      <>
+        <span>{label}</span>
+        <label htmlFor={ id }>
+          <select
+            name={ name }
+            onChange={ onChange }
+            value={ value }
+            data-testid={ testid }
+            id={ id }
+          >
+            {options.map((option) => (
+              <option key={ option } value={ option }>
+                { option }
+              </option>
+            ))}
+          </select>
+        </label>
+      </>
     );
   }
 }

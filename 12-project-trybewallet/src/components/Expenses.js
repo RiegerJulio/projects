@@ -5,6 +5,8 @@ import { fetchExpenses } from '../actions';
 import SelectForm from './SelectForm';
 import InputForm from './InputForm';
 
+import imgWallet from '../images/imgWallet.png';
+
 const INITIAL_STATE = {
   value: '',
   description: '',
@@ -51,7 +53,9 @@ class Expenses extends Component {
     const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const { currencies } = this.props;
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form onSubmit={ this.handleSubmit } className="form-left">
+        <h1 className="logo">RiegerWallet</h1>
+        <img src={ imgWallet } alt="wallet-img" className="imgWallet" />
         <InputForm
           label="Valor"
           name="value"
@@ -95,7 +99,10 @@ class Expenses extends Component {
           value={ tag }
           id="tag-id"
         />
-        <button type="submit">
+        <button
+          className="btn btn-danger"
+          type="submit"
+        >
           Adicionar despesa
         </button>
       </form>

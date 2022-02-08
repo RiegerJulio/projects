@@ -6,6 +6,8 @@ import { fetchCurrencies } from '../actions';
 import Expenses from '../components/Expenses';
 import TableExpenses from '../components/TableExpenses';
 
+import './css/wallet.css';
+
 class Wallet extends React.Component {
   // constructor() {
   //   super();
@@ -34,18 +36,21 @@ class Wallet extends React.Component {
   render() {
     const { getUser } = this.props;
     return (
-      <div>
-        <header>
-          <p data-testid="email-field">{ getUser }</p>
-          <p data-testid="total-field">{this.sumExpenses().toFixed(2)}</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
-        <main>
+      <div className="wallet-page">
+        <div className="right-content">
+          <header>
+            <p data-testid="email-field">{ getUser }</p>
+            <p data-testid="header-currency-field">BRL</p>
+            <p data-testid="total-field">{this.sumExpenses().toFixed(2)}</p>
+            <p>Total:</p>
+          </header>
+          <section>
+            <TableExpenses />
+          </section>
+        </div>
+        <main className="expenses-table">
           <Expenses />
         </main>
-        <section>
-          <TableExpenses />
-        </section>
       </div>
     );
   }
