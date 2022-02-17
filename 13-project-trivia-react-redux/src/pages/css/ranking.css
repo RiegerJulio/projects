@@ -1,0 +1,38 @@
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-logo {
+  width: 30vw;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.ranking-text {
+  font-size: 2rem;
+  margin-top: 0;
+  color: #F5A01F;
+}
+
+li {
+  color: #F1D04A;
+  font-size: 1.5rem;
+  margin-bottom: 3vh;
+  border: 2px solid #20ACC9;
+  border-radius: 5px;
+  background-color: #3D6BBC;
+  text-align: center;
+}
+
+li p {
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+.start-again-btn {
+  margin-top: 0;
+  margin-bottom: 3vh;
+}
