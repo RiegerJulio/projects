@@ -7,6 +7,8 @@ import Loader from '../components/Loader';
 import QuestionsMap from '../components/QuestionsMap';
 import Header from '../components/Header';
 
+import triviaLogo from '../images/trivia-logo.png';
+
 import './css/game.css';
 
 class Game extends Component {
@@ -51,7 +53,8 @@ class Game extends Component {
     const { history } = this.props;
 
     return (
-      <div>
+      <div className="game-container">
+        <img src={ triviaLogo } className="img-logo-resize" alt="teste" />
         <Header />
         {loader
           ? <Loader /> : (

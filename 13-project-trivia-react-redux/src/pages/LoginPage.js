@@ -6,6 +6,8 @@ import { createUser,
   createToken, createAvatar } from '../redux/actions/index';
 import { fetchToken } from '../services/fetchAPI';
 
+import triviaLogo from '../images/trivia-logo.png';
+
 import './css/login-page.css';
 
 class LoginPage extends Component {
@@ -71,47 +73,56 @@ class LoginPage extends Component {
     const { name, gravatarEmail, validation } = this.state;
 
     return (
-      <form>
-        <label htmlFor="input-name">
-          <span className="input-info">Nome</span>
-          <input
-            type="text"
-            data-testid="input-player-name"
-            id="input-name"
-            onChange={ this.handleChange }
-            value={ name }
-            name="name"
+      <>
+        <div className="img-container">
+          <img
+            src={ triviaLogo }
+            className="img-logo"
+            alt="logo-trivia"
           />
-        </label>
-        <label htmlFor="input-email">
-          <span className="input-info">Email</span>
-          <input
-            type="email"
-            data-testid="input-gravatar-email"
-            id="input-email"
-            onChange={ this.handleChange }
-            value={ gravatarEmail }
-            name="gravatarEmail"
-          />
-        </label>
-        <button
-          className="btn waves-effect waves-light light-blue darken-1"
-          type="button"
-          disabled={ validation }
-          data-testid="btn-play"
-          onClick={ () => this.handleClick() }
-        >
-          Jogar
-        </button>
-        <button
-          className="btn waves-effect waves-light light-blue darken-1"
-          type="button"
-          data-testid="btn-settings"
-          onClick={ this.btnSettings }
-        >
-          Configurações
-        </button>
-      </form>
+        </div>
+        <form>
+          <label htmlFor="input-name">
+            <span className="input-info">Nome</span>
+            <input
+              type="text"
+              data-testid="input-player-name"
+              id="input-name"
+              onChange={ this.handleChange }
+              value={ name }
+              name="name"
+            />
+          </label>
+          <label htmlFor="input-email">
+            <span className="input-info">Email</span>
+            <input
+              type="email"
+              data-testid="input-gravatar-email"
+              id="input-email"
+              onChange={ this.handleChange }
+              value={ gravatarEmail }
+              name="gravatarEmail"
+            />
+          </label>
+          <button
+            className="btn waves-effect waves-light light-blue darken-1"
+            type="button"
+            disabled={ validation }
+            data-testid="btn-play"
+            onClick={ () => this.handleClick() }
+          >
+            Play
+          </button>
+          <button
+            className="btn waves-effect waves-light light-blue darken-1"
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.btnSettings }
+          >
+            Settings
+          </button>
+        </form>
+      </>
     );
   }
 }

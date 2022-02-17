@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { decode } from 'he';
 import Timer from './Timer';
 import { createScore } from '../redux/actions/index';
+
+import '../pages/css/login-page.css';
 
 class QuestionsMap extends Component {
   constructor() {
@@ -41,6 +44,7 @@ class QuestionsMap extends Component {
   changeValidation = () => {
     this.setState({
       validation: true,
+      nextQuestion: true,
     });
   }
 
@@ -60,6 +64,7 @@ class QuestionsMap extends Component {
       await updateIndexQuestion();
       this.setState({
         colorClassName: false,
+        validation: false,
       });
       this.pushAnswers();
     }
@@ -111,7 +116,6 @@ class QuestionsMap extends Component {
     const { question, indexQuestion } = this.props;
     const { responses, correctResponse, validation, colorClassName,
       nextQuestion, timer } = this.state;
-
     return (
       <div>
         <p>
@@ -122,13 +126,21 @@ class QuestionsMap extends Component {
             />
           ) : (
             <div>
-              <p>{timer}</p>
+              <h2 className="timer">
+                {'Time Left: '}
+                {timer}
+              </h2>
             </div>
           )}
         </p>
-        <p data-testid="question-category">{ question.category }</p>
-        <p data-testid="question-text">{ question.question }</p>
-        <div data-testid="answer-options">
+        <h3 data-testid="question-category">
+          { 'Category: '}
+          { decode(question.category)}
+        </h3>
+        <h3 data-testid="question-text" className="question-text">
+          { decode(question.question)}
+        </h3>
+        <div data-testid="answer-options" className="answer-container">
           {responses.map((response, index) => (
             response === correctResponse ? (
               <button
@@ -136,7 +148,11 @@ class QuestionsMap extends Component {
                 data-testid="correct-answer"
                 key={ response }
                 disabled={ validation }
-                className={ colorClassName && 'green-border' }
+                id="btn"
+                className={
+                  colorClassName === false ? 'btn waves-effect waves-light blue darken-1'
+                    : 'btn waves-effect waves-light light-green darken-1'
+                }
                 onClick={ () => {
                   this.handleClick();
                   if (response === correctResponse) {
@@ -144,7 +160,7 @@ class QuestionsMap extends Component {
                   }
                 } }
               >
-                { response }
+                { decode(response) }
               </button>
             ) : (
               <button
@@ -152,15 +168,19 @@ class QuestionsMap extends Component {
                 data-testid={ `wrong-answer-${index}` }
                 key={ response }
                 disabled={ validation }
-                className={ colorClassName && 'red-border' }
+                className={
+                  colorClassName === false
+                    ? 'btn waves-effect waves-light light-blue darken-1'
+                    : 'btn waves-effect waves-light red darken-1'
+                }
                 onClick={ this.handleClick }
               >
-                { response }
+                { decode(response) }
               </button>
             )
           ))}
         </div>
-        <div>
+        <div className="next-btn">
           { nextQuestion
             && (
               <button
@@ -169,6 +189,7 @@ class QuestionsMap extends Component {
                 data-testid="btn-next"
                 question={ question[indexQuestion] }
                 onClick={ this.clickNextQuestion }
+                className="btn waves-effect waves-light blue darken-1 btn-next"
               >
                 Next
               </button>) }

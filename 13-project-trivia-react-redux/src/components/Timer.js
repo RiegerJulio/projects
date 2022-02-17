@@ -47,7 +47,10 @@ class Timer extends React.Component {
     const { countdown } = this.state;
 
     return (
-      <p>{countdown}</p>
+      <h2 className="timer">
+        { 'Time Left: ' }
+        {countdown}
+      </h2>
     );
   }
 }
