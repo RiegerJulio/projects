@@ -6,6 +6,8 @@ import { createUser,
   createToken, createAvatar } from '../redux/actions/index';
 import { fetchToken } from '../services/fetchAPI';
 
+import './css/login-page.css';
+
 class LoginPage extends Component {
   constructor() {
     super();
@@ -71,7 +73,7 @@ class LoginPage extends Component {
     return (
       <form>
         <label htmlFor="input-name">
-          Nome
+          <span className="input-info">Nome</span>
           <input
             type="text"
             data-testid="input-player-name"
@@ -82,7 +84,7 @@ class LoginPage extends Component {
           />
         </label>
         <label htmlFor="input-email">
-          Email
+          <span className="input-info">Email</span>
           <input
             type="email"
             data-testid="input-gravatar-email"
@@ -93,6 +95,7 @@ class LoginPage extends Component {
           />
         </label>
         <button
+          className="btn waves-effect waves-light light-blue darken-1"
           type="button"
           disabled={ validation }
           data-testid="btn-play"
@@ -101,6 +104,7 @@ class LoginPage extends Component {
           Jogar
         </button>
         <button
+          className="btn waves-effect waves-light light-blue darken-1"
           type="button"
           data-testid="btn-settings"
           onClick={ this.btnSettings }

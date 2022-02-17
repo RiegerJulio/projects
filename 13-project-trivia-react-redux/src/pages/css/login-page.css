@@ -1,0 +1,34 @@
+.img-container {
+  display: flex;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+img {
+  width: 80vw;
+}
+
+.input-info {
+  color: #F5A01F;
+  font-size: 1.5rem;
+}
+
+button {
+  margin-top: 3vh;
+}
+
+#input-name {
+  color: white;
+}
+
+#input-email {
+  color: white;
+}

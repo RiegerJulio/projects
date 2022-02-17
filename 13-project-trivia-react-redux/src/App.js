@@ -6,10 +6,17 @@ import Settings from './pages/Settings';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
 
+import triviaLogo from './images/trivia-logo.png';
+
+import './pages/css/login-page.css';
+
 export default function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="img-container">
+          <img src={ triviaLogo } alt="logo-trivia" />
+        </div>
         <Switch>
           <Route exact path="/" component={ LoginPage } />
           <Route exact path="/game" component={ Game } />
