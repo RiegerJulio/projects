@@ -56,9 +56,14 @@ class QuestionsMap extends Component {
   }
 
   clickNextQuestion = async () => {
-    const { updateIndexQuestion, indexQuestion, history } = this.props;
-    const MAGIC_NUMBER = 4;
-    if (indexQuestion === MAGIC_NUMBER) {
+    const { updateIndexQuestion,
+      indexQuestion, history, imgAvatar, namePlayer, score } = this.props;
+    const teste = JSON.parse(localStorage.getItem('ranking')) || [];
+    const localStorageInfoRank = [...teste,
+      { picture: imgAvatar, name: namePlayer, score }];
+    const INDEX_NUMBER = 4;
+    if (indexQuestion === INDEX_NUMBER) {
+      localStorage.setItem('ranking', JSON.stringify(localStorageInfoRank));
       history.push('/feedback');
     } else {
       await updateIndexQuestion();
@@ -133,7 +138,7 @@ class QuestionsMap extends Component {
             </div>
           )}
         </p>
-        <h3 data-testid="question-category">
+        <h3 data-testid="question-category" className="question-text">
           { 'Category: '}
           { decode(question.category)}
         </h3>
@@ -189,7 +194,7 @@ class QuestionsMap extends Component {
                 data-testid="btn-next"
                 question={ question[indexQuestion] }
                 onClick={ this.clickNextQuestion }
-                className="btn waves-effect waves-light blue darken-1 btn-next"
+                className="btn waves-effect waves-light light-blue btn-next"
               >
                 Next
               </button>) }
@@ -198,6 +203,12 @@ class QuestionsMap extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  imgAvatar: state.reducerAvatar,
+  namePlayer: state.player.name,
+  score: state.player.score,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchScore: (score, assertions) => dispatch(createScore(score, assertions)),
@@ -217,4 +228,4 @@ QuestionsMap.propTypes = {
   updateIndexQuestion: PropTypes.func,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(QuestionsMap);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionsMap);

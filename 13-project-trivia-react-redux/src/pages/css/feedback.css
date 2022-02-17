@@ -1,0 +1,32 @@
+.header-feedback {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
+
+.results {
+  margin-left: 0;
+  margin-top: 3vh;
+  color: #F5A01F;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.feedback-message {
+  font-size: 2.5rem;
+  color: #C93127;
+  text-align: center;
+}
+
+.img-logo {
+  width: 50vw;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.feedback-btn-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}

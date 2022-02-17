@@ -105,7 +105,7 @@ class LoginPage extends Component {
             />
           </label>
           <button
-            className="btn waves-effect waves-light light-blue darken-1"
+            className="btn waves-effect waves-light light-blue"
             type="button"
             disabled={ validation }
             data-testid="btn-play"
@@ -114,7 +114,7 @@ class LoginPage extends Component {
             Play
           </button>
           <button
-            className="btn waves-effect waves-light light-blue darken-1"
+            className="btn waves-effect waves-light light-blue"
             type="button"
             data-testid="btn-settings"
             onClick={ this.btnSettings }
