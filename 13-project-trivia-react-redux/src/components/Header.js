@@ -2,15 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import '../pages/css/game.css';
+
 class Header extends React.Component {
   render() {
     const { avatar, namePlayer, score } = this.props;
 
     return (
       <header>
-        <img src={ avatar } alt="Imagem Avatar" data-testid="header-profile-picture" />
-        <h4 data-testid="header-player-name">{ namePlayer }</h4>
-        <h6 data-testid="header-score">{ score }</h6>
+        <img
+          src={ avatar }
+          alt="Imagem Avatar"
+          data-testid="header-profile-picture"
+          className="gravatar-img"
+        />
+        <div>
+          <h2 data-testid="header-player-name">
+            {'Jogador: '}
+            { namePlayer }
+          </h2>
+          <h2 data-testid="header-score">
+            {'Pontuação: '}
+            { score }
+          </h2>
+        </div>
       </header>
     );
   }

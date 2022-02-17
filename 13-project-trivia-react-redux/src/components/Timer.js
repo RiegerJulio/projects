@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import '../pages/css/game.css';
+
 class Timer extends React.Component {
   constructor() {
     super();

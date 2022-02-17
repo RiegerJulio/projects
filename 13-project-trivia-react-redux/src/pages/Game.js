@@ -7,6 +7,8 @@ import Loader from '../components/Loader';
 import QuestionsMap from '../components/QuestionsMap';
 import Header from '../components/Header';
 
+import './css/game.css';
+
 class Game extends Component {
   constructor() {
     super();

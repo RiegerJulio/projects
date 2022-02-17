@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.gravatar-img {
+  width: 15vw;
+}
+
+h2 {
+  color: #F5A01F;
+  font-size: 1.5rem;
+  margin: 0;
+  margin-left: 3vh;
+}

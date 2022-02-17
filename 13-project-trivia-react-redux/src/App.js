@@ -13,18 +13,16 @@ import './pages/css/login-page.css';
 export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="img-container">
-          <img src={ triviaLogo } alt="logo-trivia" />
-        </div>
-        <Switch>
-          <Route exact path="/" component={ LoginPage } />
-          <Route exact path="/game" component={ Game } />
-          <Route exact path="/settings" component={ Settings } />
-          <Route exact path="/feedback" component={ Feedback } />
-          <Route exact path="/ranking" component={ Ranking } />
-        </Switch>
-      </header>
+      <div className="img-container">
+        <img src={ triviaLogo } className="img-logo" alt="logo-trivia" />
+      </div>
+      <Switch>
+        <Route exact path="/" component={ LoginPage } />
+        <Route exact path="/game" component={ Game } />
+        <Route exact path="/settings" component={ Settings } />
+        <Route exact path="/feedback" component={ Feedback } />
+        <Route exact path="/ranking" component={ Ranking } />
+      </Switch>
     </div>
   );
 }
