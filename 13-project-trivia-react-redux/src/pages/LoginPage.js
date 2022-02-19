@@ -77,7 +77,7 @@ class LoginPage extends Component {
         <div className="img-container">
           <img
             src={ triviaLogo }
-            className="img-logo"
+            className="img-logo-login"
             alt="logo-trivia"
           />
         </div>
