@@ -33,7 +33,7 @@
 
 
 @media screen and (min-width: 1024px) {
-  section {
+  .feedback-section {
     margin-top: 20vh;
   }
 

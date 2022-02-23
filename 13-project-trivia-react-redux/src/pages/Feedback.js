@@ -45,7 +45,7 @@ class Feedback extends React.Component {
     const { player: { assertions, score } } = localStorageInfo;
 
     return (
-      <section>
+      <section className="feedback-section">
         <div className="feedback-container">
           <div className="header-feedback">
             <img src={ triviaLogo } className="img-logo" alt="teste" />
