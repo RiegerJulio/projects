@@ -34,7 +34,7 @@ class Ranking extends React.Component {
     const { ranking } = this.state;
 
     return (
-      <section>
+      <section className="ranking-section">
         <img src={ triviaLogo } className="img-logo" alt="teste" />
         <h1 data-testid="ranking-title" className="ranking-text">Ranking</h1>
         <div className="ranking-container">

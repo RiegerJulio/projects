@@ -32,3 +32,9 @@ button {
 #input-email {
   color: white;
 }
+
+@media screen and (min-width: 1024px) {
+  .img-logo-login {
+    width: 20vw;
+  }
+}

@@ -45,21 +45,25 @@ class Feedback extends React.Component {
     const { player: { assertions, score } } = localStorageInfo;
 
     return (
-      <section>
-        <div className="header-feedback">
-          <img src={ triviaLogo } className="img-logo" alt="teste" />
-          {/* <Header /> */}
+      <section className="feedback-section">
+        <div className="feedback-container">
+          <div className="header-feedback">
+            <img src={ triviaLogo } className="img-logo" alt="teste" />
+            {/* <Header /> */}
+          </div>
+          <div className="results-feedback">
+            <h2 data-testid="feedback-text" className="results">Results</h2>
+            <h3 data-testid="feedback-total-score">
+              { 'Final Score: ' }
+              { score }
+            </h3>
+            <h3 data-testid="feedback-total-question">
+              { 'Final Assertions: '}
+              { assertions }
+            </h3>
+            { this.feedbackMessage() }
+          </div>
         </div>
-        <h2 data-testid="feedback-text" className="results">Results</h2>
-        <h3 data-testid="feedback-total-score">
-          { 'Final Score: ' }
-          { score }
-        </h3>
-        <h3 data-testid="feedback-total-question">
-          { 'Final Assertions: '}
-          { assertions }
-        </h3>
-        { this.feedbackMessage() }
         <div className="feedback-btn-container">
           <button
             className="btn waves-effect waves-light light-blue"
