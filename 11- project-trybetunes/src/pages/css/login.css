@@ -6,13 +6,23 @@
   height: 50vh;
 }
 
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
 .input-field {
   margin-bottom: 1rem;
   text-align: center;
+  width: 25vh;
+}
+
+.login-text {
+  font-size: 1.5rem;
 }
 
 .btn-outline-light {
-  width: 50%;
+  max-width: 25vh;
 }
 
 .spotify {
