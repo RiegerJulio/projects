@@ -47,7 +47,7 @@ export default class Login extends Component {
           <div className="login-page">
             <h1 className="spotify">iSpotifai</h1>
             <form className="form-input">
-              <p>Login</p>
+              <p className="login-text">Login</p>
               <label htmlFor="username">
                 <input
                   className="input-field"
