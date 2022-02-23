@@ -1,0 +1,12 @@
+.config-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+.config-message {
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+}
