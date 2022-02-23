@@ -54,8 +54,10 @@ class Game extends Component {
 
     return (
       <div className="game-container">
-        <img src={ triviaLogo } className="img-logo-resize" alt="teste" />
-        <Header />
+        <div className="header-pc">
+          <img src={ triviaLogo } className="img-logo-resize" alt="teste" />
+          <Header />
+        </div>
         {loader
           ? <Loader /> : (
             <QuestionsMap
