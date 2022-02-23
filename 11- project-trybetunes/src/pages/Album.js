@@ -71,14 +71,18 @@ export default class Album extends Component {
         ) : (
           <main data-testid="page-album" className="page-album">
             <AlbumInfos album={ artistInfo } />
-            {musicList.map((music) => (
-              <MusicCard
-                key={ music.trackId }
-                song={ music }
-                addSong={ this.addSong }
-                checked={ favoriteSongs.some(({ trackId }) => trackId === music.trackId) }
-              />
-            ))}
+            <div className="songs-container">
+              {musicList.map((music) => (
+                <MusicCard
+                  key={ music.trackId }
+                  song={ music }
+                  addSong={ this.addSong }
+                  checked={
+                    favoriteSongs.some(({ trackId }) => trackId === music.trackId)
+                  }
+                />
+              ))}
+            </div>
           </main>
         )}
       </>
