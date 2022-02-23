@@ -9,6 +9,11 @@
   padding: 1rem
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
 .header-name {
   color: #1db954;
   text-align: center;
@@ -67,4 +72,16 @@ a {
 
 .artist-title {
   color: #1db954;
+}
+
+@media screen and (min-width: 1024px) {
+  .artist-gallery {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .artist-result {
+    color: pink;
+    width: 20vw;
+  }
 }
