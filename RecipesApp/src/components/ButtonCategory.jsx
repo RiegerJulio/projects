@@ -9,6 +9,7 @@ export default function ButtonCategory({ strCategory, index, func }) {
       key={ index }
       data-testid={ `${strCategory}-category-filter` }
       onClick={ func }
+      className="waves-effect waves-light btn deep-orange accent-2 btn-header"
     >
       { strCategory }
     </button>

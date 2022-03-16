@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import searchIcon from '../images/searchIcon.svg';
+import { HiSearchCircle } from 'react-icons/hi';
+// import searchIcon from '../images/searchIcon.svg';
 
 import {
   fetchMealsIngredientName,
@@ -59,58 +60,70 @@ function Search() {
   return (
     <section>
       <button
+        className="btn-search"
         type="button"
         data-testid="search-top-btn"
-        src={ searchIcon }
+        // src={ searchIcon }
         onClick={ () => setToggleShowBar(!toggleShowBar) }
       >
-        <img src={ searchIcon } alt="search icon" />
+        <HiSearchCircle size={ 40 } color="#afb42b" />
+        {/* <img src={ searchIcon } alt="search icon" /> */}
       </button>
       { toggleShowBar ? (
-        <div>
-          <input
-            type="text"
-            data-testid="search-input"
-            value={ inputSearch }
-            onChange={ ({ target }) => setInputSearch(target.value) }
-          />
-          <label htmlFor="ingredient-search">
-            Ingredient Search
+        <div className="search-container">
+          <div className="search-group">
             <input
-              type="radio"
-              name="search"
-              id="ingredient-search"
-              data-testid="ingredient-search-radio"
-              onChange={ () => setStoreWord('ingredient') }
+              className="search-input"
+              type="text"
+              data-testid="search-input"
+              value={ inputSearch }
+              onChange={ ({ target }) => setInputSearch(target.value) }
             />
-          </label>
-          <label htmlFor="name-search">
-            Name Search
-            <input
-              type="radio"
-              name="search"
-              id="name-search"
-              data-testid="name-search-radio"
-              onChange={ () => setStoreWord('name') }
-            />
-          </label>
-          <label htmlFor="first-letter-search">
-            First Letter Search
-            <input
-              type="radio"
-              name="search"
-              id="first-letter-search"
-              data-testid="first-letter-search-radio"
-              onChange={ () => setStoreWord('first-letter') }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="exec-search-btn"
-            onClick={ switchCase }
-          >
-            Search
-          </button>
+            <p>
+              <label htmlFor="ingredient-search">
+                <input
+                  type="radio"
+                  name="search"
+                  id="ingredient-search"
+                  data-testid="ingredient-search-radio"
+                  onChange={ () => setStoreWord('ingredient') }
+                />
+                <span className="teste">Ingredient Search</span>
+              </label>
+            </p>
+            <p>
+              <label htmlFor="name-search">
+                <input
+                  type="radio"
+                  name="search"
+                  id="name-search"
+                  data-testid="name-search-radio"
+                  onChange={ () => setStoreWord('name') }
+                />
+                <span>Name Search</span>
+              </label>
+            </p>
+            <p>
+              <label htmlFor="first-letter-search">
+                <input
+                  type="radio"
+                  name="search"
+                  id="first-letter-search"
+                  data-testid="first-letter-search-radio"
+                  onChange={ () => setStoreWord('first-letter') }
+                />
+                <span>First Letter Search</span>
+              </label>
+            </p>
+            <button
+              className="waves-effect waves-light btn deep-orange accent-2"
+              type="button"
+              data-testid="exec-search-btn"
+              onClick={ switchCase }
+            >
+              Search
+            </button>
+          </div>
         </div>
       ) : null}
     </section>

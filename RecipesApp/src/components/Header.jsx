@@ -1,22 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { HiUserCircle } from 'react-icons/hi';
 
-import profileIcon from '../images/profileIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
 
-export default function Header(props) {
-  const { title } = props;
+export default function Header() {
+  // const { title } = props;
 
   return (
-    <div>
-      <h1 data-testid="page-title">{title}</h1>
-      <Link to="/profile" src={ profileIcon }>
-        <img src={ profileIcon } data-testid="profile-top-btn" alt="profile button" />
+    <div className="header">
+      <Link to="/profile">
+        {/* <img src={ profileIcon } data-testid="profile-top-btn" alt="profile button" /> */}
+        <HiUserCircle size={ 40 } color="#afb42b" />
       </Link>
     </div>
   );
 }
 
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-};
+// Header.propTypes = {
+//   title: PropTypes.string.isRequired,
+// };
