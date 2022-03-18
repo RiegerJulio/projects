@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+// import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import MyContext from './MyContext';
 import { fetchMeals,
   fetchMealCategories,
@@ -10,69 +11,30 @@ import { fetchMeals,
 
 import RecipesCardFood from '../components/RecipesCardFood';
 import RecipesCardDrink from '../components/RecipesCardDrink';
-import { setLocalStorage } from '../services/localStorage';
+
+import { getLocalStorage } from '../services/localStorage';
+
+import whiteHeartIcon from '../images/whiteHeartIcon.png';
+import blackHeartIcon from '../images/blackHeartIcon.png';
+
+const START_RECIPE = 'Start Recipe';
 
 function Provider({ children }) {
+  const [check, setCheck] = useState();
+  const [stepsClassName, setStepsClassName] = useState();
   const [searchbtn, setsearchbtn] = useState(true);
   const [mealsArray, setMealsArray] = useState([]);
   const [initialCategoriesFood, setInitialCategoriesFood] = useState([]);
   const [initialCategoriesDrink, setinitialCategoriesDrink] = useState([]);
   const [drinksArray, setDrinksArray] = useState([]);
-  const [doneRecipes, setDoneRecipes] = useState([{
-    id: '',
-    type: '',
-    nationality: '',
-    category: '',
-    alcoholicOrNot: '',
-    name: '',
-    image: '',
-    doneDate: '',
-    tags: [],
-  }]);
-
-  const [inProgressRecipes, setInProgressRecipes] = useState({
-    cocktails: {},
-    meals: {},
-  });
-
-  const [favoriteRecipes, setfavoriteRecipes] = useState(
-    [
-      {
-        id: '52771',
-        type: 'food',
-        nationality: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      },
-      {
-        id: '178319',
-        type: 'drink',
-        nationality: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      },
-    ],
-  );
-
   const [itemRecovered, setItemRecovered] = useState([]);
-  const [testName, settestName] = useState([]);
   const [renderSearch, setRenderSearch] = useState(true);
   const [kind, setKind] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [buttonValue, setButtonValue] = useState('');
 
-  useEffect(() => {
-    setLocalStorage('doneRecipes', doneRecipes);
-    setLocalStorage('inProgressRecipes', inProgressRecipes);
-    setLocalStorage('favoriteRecipes', favoriteRecipes);
-  }, [setDoneRecipes, setInProgressRecipes, setfavoriteRecipes]);
-
   const verify = () => {
-    const te = itemRecovered.length > 0
+    const te = itemRecovered.length === 1
       && Object.fromEntries(
         Object.entries(itemRecovered[0])
           .filter((it1) => it1[0].includes('strIngredient')),
@@ -148,7 +110,45 @@ function Provider({ children }) {
     return checkerApiData;
   };
 
+  const [verifyStart, setVerifyStart] = useState(true);
+  const [btnValue, setbtnValue] = useState(START_RECIPE);
+  const testDoneRecipes = (id) => {
+    const getLocal = getLocalStorage('doneRecipes');
+    if (getLocal) {
+      setVerifyStart(getLocal.some((a) => a.id !== id));
+    }
+  };
+
+  const testInprogressRecipesMeals = (id) => {
+    const getLocalInprogress = getLocalStorage('inProgressRecipes');
+    if (getLocalInprogress) {
+      setbtnValue(getLocalInprogress.meals[id] !== undefined
+        ? 'Continue Recipe' : START_RECIPE);
+    }
+  };
+
+  const testInprogressRecipesCocktails = (id) => {
+    const getLocalInprogress = getLocalStorage('inProgressRecipes');
+    if (getLocalInprogress) {
+      setbtnValue(getLocalInprogress.cocktails[id] !== undefined
+        ? 'Continue Recipe' : START_RECIPE);
+    }
+  };
+
+  const [imageFav, setImageFav] = useState(whiteHeartIcon);
+  const favFunc = () => {
+    if (imageFav === whiteHeartIcon) {
+      setImageFav(blackHeartIcon);
+    } else {
+      setImageFav(whiteHeartIcon);
+    }
+  };
+
   const stateHook = {
+    check,
+    setCheck,
+    stepsClassName,
+    setStepsClassName,
     searchbtn,
     funcSetSearch,
     mealsArray,
@@ -161,16 +161,9 @@ function Provider({ children }) {
     setDrinksArray,
     foodsRecipe,
     drinksRecipe,
-    doneRecipes,
-    setDoneRecipes,
     itemRecovered,
     setItemRecovered,
     verify,
-    inProgressRecipes,
-    setInProgressRecipes,
-    testName,
-    settestName,
-    setfavoriteRecipes,
     renderSearch,
     setRenderSearch,
     kind,
@@ -183,6 +176,14 @@ function Provider({ children }) {
     renderKind,
     setButtonValue,
     buttonValue,
+    testDoneRecipes,
+    testInprogressRecipesMeals,
+    testInprogressRecipesCocktails,
+    btnValue,
+    verifyStart,
+    favFunc,
+    imageFav,
+    setImageFav,
   };
 
   useEffect(() => {

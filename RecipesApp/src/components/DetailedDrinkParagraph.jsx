@@ -6,7 +6,11 @@ export default function DetailedDrinkParagraph(props) {
   const { index, it, itemRecovered } = props;
 
   return (
-    <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+    <p
+      className="ingredients-list"
+      key={ index }
+      data-testid={ `${index}-ingredient-name-and-measure` }
+    >
       {index + 1}
       {' '}
       -

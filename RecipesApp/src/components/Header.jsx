@@ -12,7 +12,7 @@ export default function Header() {
     <div className="header">
       <Link to="/profile">
         {/* <img src={ profileIcon } data-testid="profile-top-btn" alt="profile button" /> */}
-        <HiUserCircle size={ 40 } color="#afb42b" />
+        <HiUserCircle size={ 40 } color="#ffffff" />
       </Link>
     </div>
   );

@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import { fetchRandomMeal } from '../services/fetchApi';
 
+import headerLogo from '../images/header-logo.png';
+
 export default function ExploreFoods() {
   const history = useHistory();
 
@@ -16,21 +18,46 @@ export default function ExploreFoods() {
 
   return (
     <>
-      <Header title="Explore Foods" />
-      <div>
-        <Link to="/explore/foods/ingredients">
-          <span data-testid="explore-by-ingredient">By Ingredient</span>
+      <div className="header-container">
+        <Header title="Explore" />
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
+      <div className="explore-btn-container">
+        <Link
+          to="/explore/foods/ingredients"
+          className="waves-effect waves-light btn-large btn-explore red darken-4"
+        >
+          <span
+            className="btn-explore-text"
+            data-testid="explore-by-ingredient"
+          >
+            By Ingredient
+          </span>
         </Link>
-        <Link to="/explore/foods/nationalities">
-          <span data-testid="explore-by-nationality">By Nationality</span>
+        <Link
+          to="/explore/foods/nationalities"
+          className="waves-effect waves-light btn-large btn-explore brown darken-4"
+        >
+          <span
+            className="btn-explore-text"
+            data-testid="explore-by-nationality"
+          >
+            By Nationality
+          </span>
         </Link>
         {/* implementar logica abaixo */}
-        <button
-          type="button"
+        <Link
+          to="#t"
+          className="waves-effect waves-light btn-large btn-explore lime darken-2"
           onClick={ handleRandom }
         >
-          <span data-testid="explore-surprise">Surprise me!</span>
-        </button>
+          <span
+            className="btn-explore-text"
+            data-testid="explore-surprise"
+          >
+            Surprise me!
+          </span>
+        </Link>
       </div>
       <LowerMenu />
     </>

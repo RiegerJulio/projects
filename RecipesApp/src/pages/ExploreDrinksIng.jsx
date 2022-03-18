@@ -1,8 +1,12 @@
+/* eslint-disable no-var */
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import MyContext from '../Context/MyContext';
+
+import headerLogo from '../images/header-logo.png';
+import './css/explore.css';
 
 import { fetchDrinkIngredients, fetchDrinksIngredientName } from '../services/fetchApi';
 
@@ -28,34 +32,47 @@ export default function ExploreFoodsIng() {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      const elem = document.querySelector('.carousel');
+      const instance = M.Carousel.init(elem, {});
+      if (document.querySelector('.photos').classList) {
+        document.querySelector('.photos').classList.remove('spinner');
+      }
+      console.log(instance);
+    // eslint-disable-next-line no-magic-numbers
+    }, 1000);
     requestIngredients();
   }, []);
 
   return (
-    <>
-      <Header title="Explore Ingredients" kind="Foods" />
-      {
-        initialIngredients.map((ingredient, index) => (
-          <div
-            key={ ingredient.strIngredient1 }
-          >
+    <div className="explore-container">
+      <div className="header-container">
+        <Header title="Explore" />
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
+      <div className="carousel carousel-ing">
+        {initialIngredients
+          .map((ingredient, index) => (
             <Link
+              key={ ingredient.strIngredient1 }
+              className="carousel-item"
+              to="/drinks"
               data-testid={ `${index}-ingredient-card` }
               onClick={ () => handleClick(ingredient.strIngredient1) }
-              to="/drinks"
             >
               <img
                 data-testid={ `${index}-card-img` }
-                src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}.png` }
                 alt={ ingredient.strIngredient1 }
               />
-              <p data-testid={ `${index}-card-name` }>{ ingredient.strIngredient1 }</p>
+              <p className="food-name" data-testid={ `${index}-card-name` }>
+                {ingredient.strIngredient1}
+              </p>
             </Link>
-          </div>
-        )).slice(0, MAX_INGREDIENTS)
-      }
-      <div>Explore Foods By Ingredient</div>
+          ))
+          .slice(0, MAX_INGREDIENTS)}
+      </div>
       <LowerMenu />
-    </>
+    </div>
   );
 }

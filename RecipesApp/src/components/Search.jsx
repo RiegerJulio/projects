@@ -66,7 +66,7 @@ function Search() {
         // src={ searchIcon }
         onClick={ () => setToggleShowBar(!toggleShowBar) }
       >
-        <HiSearchCircle size={ 40 } color="#afb42b" />
+        <HiSearchCircle size={ 40 } color="#ffffff" />
         {/* <img src={ searchIcon } alt="search icon" /> */}
       </button>
       { toggleShowBar ? (

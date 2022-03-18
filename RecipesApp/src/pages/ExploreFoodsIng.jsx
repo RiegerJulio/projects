@@ -1,8 +1,15 @@
+/* eslint-disable no-magic-numbers */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-var */
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import M from 'materialize-css';
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import MyContext from '../Context/MyContext';
+
+import headerLogo from '../images/header-logo.png';
+import './css/explore.css';
 
 import { fetchMealIngredients, fetchMealsIngredientName } from '../services/fetchApi';
 
@@ -28,34 +35,45 @@ export default function ExploreFoodsIng() {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      const elem = document.querySelector('.carousel');
+      const instance = M.Carousel.init(elem, {});
+      if (document.querySelector('.photos').classList) {
+        document.querySelector('.photos').classList.remove('spinner');
+      }
+    }, 1000);
     requestIngredients();
   }, []);
 
   return (
-    <>
-      <Header title="Explore Ingredients" kind="Foods" />
-      {
-        initialIngredients.map((ingredient, index) => (
-          <div
-            key={ ingredient.strIngredient1 }
-          >
+    <div className="explore-container">
+      <div className="header-container">
+        <Header title="Explore" />
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
+      <div className="carousel carousel-ing">
+        {initialIngredients
+          .map((ingredient, index) => (
             <Link
+              key={ ingredient.strIngredient1 }
+              className="carousel-item"
+              to="/foods"
               data-testid={ `${index}-ingredient-card` }
               onClick={ () => handleClick(ingredient.strIngredient) }
-              to="/foods"
             >
               <img
                 data-testid={ `${index}-card-img` }
-                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
                 alt={ ingredient.strIngredient }
               />
-              <p data-testid={ `${index}-card-name` }>{ ingredient.strIngredient }</p>
+              <p className="food-name" data-testid={ `${index}-card-name` }>
+                {ingredient.strIngredient}
+              </p>
             </Link>
-          </div>
-        )).slice(0, MAX_INGREDIENTS)
-      }
-      <div>Explore Foods By Ingredient</div>
+          ))
+          .slice(0, MAX_INGREDIENTS)}
+      </div>
       <LowerMenu />
-    </>
+    </div>
   );
 }

@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import { fetchRandomDrink } from '../services/fetchApi';
 
+import headerLogo from '../images/header-logo.png';
+
 export default function ExploreFoods() {
   const history = useHistory();
 
@@ -16,18 +18,35 @@ export default function ExploreFoods() {
 
   return (
     <>
-      <Header title="Explore Drinks" />
-      <div>
-        <Link to="/explore/drinks/ingredients">
-          <span data-testid="explore-by-ingredient">By Ingredient</span>
+      <div className="header-container">
+        <Header title="Explore" />
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
+      <div className="explore-btn-container">
+        <Link
+          to="/explore/drinks/ingredients"
+          className="waves-effect waves-light btn-large btn-explore red darken-4"
+        >
+          <span
+            className="btn-explore-text"
+            data-testid="explore-by-ingredient"
+          >
+            By Ingredient
+          </span>
         </Link>
         {/* implementar logica abaixo */}
-        <button
-          type="button"
+        <Link
+          className="waves-effect waves-light btn-large btn-explore lime darken-2"
+          to="#t"
           onClick={ handleRandom }
         >
-          <span data-testid="explore-surprise">Surprise me!</span>
-        </button>
+          <span
+            className="btn-explore-text"
+            data-testid="explore-surprise"
+          >
+            Surprise me!
+          </span>
+        </Link>
       </div>
       <LowerMenu />
     </>

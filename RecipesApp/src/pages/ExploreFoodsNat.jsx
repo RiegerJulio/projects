@@ -1,5 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-var */
 import React, { useState, useEffect, useContext } from 'react';
 // import { Link } from 'react-router-dom';
+import M from 'materialize-css';
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import RecipesCardFood from '../components/RecipesCardFood';
@@ -10,6 +13,8 @@ import {
   fetchMealsName,
   fetchMealsNationality,
 } from '../services/fetchApi';
+
+import headerLogo from '../images/header-logo.png';
 
 export default function ExploreFoodsNat() {
   const NUMBER_CARDS_INITIAL = 12;
@@ -35,6 +40,11 @@ export default function ExploreFoodsNat() {
   };
 
   useEffect(() => {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, {
+      // specify options here
+    });
+    console.log(instances);
     grabNationalities();
     getMeals();
   }, []);
@@ -48,16 +58,24 @@ export default function ExploreFoodsNat() {
 
   return (
     <>
-      <Header title="Explore Nationalities" renderSearchBtn="true" />
-      <Search />
-      <div>
+      <div className="header-container">
+        <Header title="Search for Foods" />
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+        <Search />
+      </div>
+      <div className="select-container">
         <select
-          name="dropdown"
+          className="browser-default"
           id="nationalities"
           data-testid="explore-by-nationality-dropdown"
           onChange={ handleChange }
           value={ menu }
         >
+          <option
+            value="All"
+          >
+            Select a Country:
+          </option>
           <option
             value="All"
             data-testid="All-option"
@@ -77,7 +95,7 @@ export default function ExploreFoodsNat() {
           }
         </select>
       </div>
-      <div>
+      <div className="meals-container">
         {
           mealsArray && mealsArray.map((meal, index) => (
             // <Link

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { HiShare } from 'react-icons/hi';
 import Youtube from './Youtube';
 
 export default function DetailedFoodComponent(props) {
@@ -23,32 +25,39 @@ export default function DetailedFoodComponent(props) {
 
   return (
     <section key={ index }>
-      <h1 data-testid="recipe-title">{strMeal}</h1>
+      <h1 data-testid="page-title" className="header-title">{strMeal}</h1>
       <img
+        className="img-recipe"
         src={ strMealThumb }
         alt="food"
         data-testid="recipe-photo"
       />
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ onClickShare }
-      >
-        Share
-      </button>
-      <button
-        type="button"
-        onClick={ onClickFav }
-      >
-        <img
-          src={ iconFav }
-          alt=""
-          data-testid="favorite-btn"
-        />
-      </button>
-      <p data-testid="recipe-category">{strCategory}</p>
-      <p data-testid="instructions">{strInstructions}</p>
-      <div data-testid="video">
+      <div className="actions-container">
+        <Link
+          to="#t"
+          data-testid="share-btn"
+          onClick={ onClickShare }
+        >
+          <HiShare size={ 40 } color="ffffff" />
+        </Link>
+        <Link
+          to="#t"
+          onClick={ onClickFav }
+        >
+          <img
+            className="heart-outline"
+            src={ iconFav }
+            alt="icon fav"
+            data-testid="favorite-btn"
+          />
+        </Link>
+      </div>
+      <h5 className="category" data-testid="recipe-category">{`#${strCategory}`}</h5>
+      <div className="instructions-container">
+        <h5 className="category" data-testid="recipe-category">Preparation</h5>
+        <p className="instructions" data-testid="instructions">{strInstructions}</p>
+      </div>
+      <div className="youtube-box" data-testid="video">
         <Youtube video={ strYoutube !== undefined ? strYoutube.split('=')[1] : null } />
       </div>
     </section>
