@@ -12,6 +12,11 @@
   justify-content: space-evenly;
 }
 
+.copy-info {
+  color: white;
+  text-align: center;
+}
+
 .category {
   text-align: center;
   font-size: 1.5rem;
@@ -43,4 +48,14 @@
 .carousel-container {
   /* height: 200px; */
   padding-bottom: 5vh;
+}
+
+.start-btn {
+  width: 100vw;
+  margin-top: 3vh;
+  margin-bottom: 7vh;
+}
+
+.instructions-progress {
+  margin-top: 3vh;
 }

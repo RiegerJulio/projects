@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+import M from 'materialize-css';
 import { useHistory, useParams } from 'react-router-dom';
 import RecipesCardFood from '../components/RecipesCardFood';
+import Header from '../components/Header';
 
 import { fetchDrinkDetailsId } from '../services/fetchApi';
-import { getLocalStorage } from '../services/localStorage';
 
 import MyContext from '../Context/MyContext';
 import DetailedDrinkComponent from '../components/DetailedDrinkComponent';
@@ -12,65 +13,70 @@ import DetailedDrinkParagraph from '../components/DetailedDrinkParagraph';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-import '../App.css';
+import './css/detailsFoodsAndDrinks.css';
+import headerLogo from '../images/header-logo.png';
+
+import { getLocalStorage } from '../services/localStorage';
+
+import LowerMenu from '../components/LowerMenu';
 
 const SIX = 6;
 
-// console.log(getLocalStorage('inProgressRecipes'));
-
-// const verifyCond = () => {
-//   if (getLocalStorage('recipesI'))
-// }
-
 export default function DetailedDrink() {
-  const [verifyStart, setVerifyStart] = useState(false);
-  const [verifyRecipe, setVerifyRecipe] = useState(true);
-  const [imageFav, setImageFav] = useState(whiteHeartIcon);
-
   const {
     mealsArray,
     requestApiFoods,
     itemRecovered,
     setItemRecovered,
     verify,
+    verifyStart,
+    btnValue,
+    testDoneRecipes,
+    testInprogressRecipesCocktails,
+    favFuncDrink,
+    imageFav,
+    setImageFav,
   } = useContext(MyContext);
 
   const history = useHistory();
-
-  // const item = history.location.pathname.split('/')[2];
   const { id } = useParams();
+
+  const testeFavorite = () => {
+    const getLocalFav = getLocalStorage('favoriteRecipes');
+    if (getLocalFav) {
+      if (getLocalFav.some((a) => a.id === id)) {
+        setImageFav(blackHeartIcon);
+      } else {
+        setImageFav(whiteHeartIcon);
+      }
+    }
+  };
 
   const recoverData = async () => {
     const recoverFetch = await fetchDrinkDetailsId(id);
     setItemRecovered([recoverFetch]);
     requestApiFoods();
-    const getLocal = await getLocalStorage('doneRecipes');
-    const getlocalRecipes = await getLocalStorage('inProgressRecipes');
-    setVerifyRecipe(getlocalRecipes.cocktails[id] !== undefined);
-    setVerifyStart(getLocal[0].id !== id);
+    testDoneRecipes(id);
+    testInprogressRecipesCocktails(id);
+    testeFavorite();
   };
 
   useEffect(() => {
     recoverData();
+    setTimeout(() => {
+      const elem = document.querySelector('.carousel');
+      const instance = M.Carousel.init(elem, {});
+      if (document.querySelector('.photos').classList) {
+        document.querySelector('.photos').classList.remove('spinner');
+      }
+      console.log(instance);
+    // eslint-disable-next-line no-magic-numbers
+    }, 1000);
   }, []);
 
   const redirectPageDrink = () => {
     history.push(`/drinks/${id}/in-progress`);
   };
-
-  const shareFunc = () => {
-    global.alert('Link copied!');
-    navigator.clipboard.writeText(history.location.pathname);
-  };
-
-  useEffect(() => {
-    const getLocalFav = getLocalStorage('favoriteRecipes');
-    if (getLocalFav[0].id === id) {
-      setImageFav(blackHeartIcon);
-    } else {
-      setImageFav(whiteHeartIcon);
-    }
-  }, []);
 
   const verifyAlcohoolic = (alco, categ) => {
     if (alco === 'Alcoholic') {
@@ -81,39 +87,61 @@ export default function DetailedDrink() {
 
   return (
     <div>
+      <div className="header-container">
+        <Header title="Explore" />
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
       {
-        itemRecovered.length > 0
-        && itemRecovered.map((it, index) => (
+        itemRecovered.length === 1 ? (
           <DetailedDrinkComponent
-            key={ index }
-            index={ index }
-            strDrink={ it.strDrink }
-            strDrinkThumb={ it.strDrinkThumb }
-            strCategory={ verifyAlcohoolic(it.strAlcoholic, it.strCategory) }
-            strInstructions={ it.strInstructions }
-            onClickShare={ shareFunc }
-            // onClickFav={ favFunc }
+            key={ itemRecovered[0] }
+            index={ itemRecovered[0] }
+            strDrink={ itemRecovered[0].strDrink }
+            strDrinkThumb={ itemRecovered[0].strDrinkThumb }
+            strCategory={ verifyAlcohoolic(itemRecovered[0].strAlcoholic,
+              itemRecovered[0].strCategory) }
+            strInstructions={ itemRecovered[0].strInstructions }
+            // onClickShare={ shareFunc }
+            onClickFav={ () => favFuncDrink(id) }
             iconFav={ imageFav }
-          />
-        ))
+          />)
+          : (
+            <DetailedDrinkComponent
+              key=""
+              index=""
+              strDrink=""
+              strDrinkThumb=""
+              strCategory=""
+              strInstructions=""
+              // onClickShare={ shareFunc }
+              iconFav={ imageFav }
+            />
+          )
       }
-      {
-        itemRecovered.length > 0
-        && verify().map((it, index) => (
-          <DetailedDrinkParagraph
-            key={ index }
-            index={ index }
-            it={ it }
-            itemRecovered={ itemRecovered }
-          />
-        ))
-      }
-      <div className="recomendations">
+      <h5 className="category" data-testid="recipe-category">Ingredients</h5>
+      <div className="ingredients-container">
+        {
+          verify().map((it, index) => (
+            <DetailedDrinkParagraph
+              key={ index }
+              index={ index }
+              it={ it }
+              itemRecovered={ itemRecovered.length === 1 ? itemRecovered : '' }
+            />
+          ))
+        }
+      </div>
+      <h5 className="category" data-testid="recipe-category">Try With</h5>
+      <div className="carousel carousel-container">
         {
           mealsArray.length > 0
           && mealsArray
             .map((meal, index) => (
-              <div key={ index } data-testid={ `${index}-recomendation-title` }>
+              <div
+                className="carousel-item"
+                key={ index }
+                data-testid={ `${index}-recomendation-title` }
+              >
                 <div data-testid={ `${index}-recomendation-card` }>
                   <RecipesCardFood
                     idMeal={ meal.idMeal }
@@ -127,20 +155,18 @@ export default function DetailedDrink() {
             .slice(0, SIX)
         }
       </div>
-      {
-        verifyStart && (
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            style={ { position: 'fixed', bottom: '0px' } }
-            onClick={ redirectPageDrink }
-          >
-            Start
-          </button>
-        )
-      }
-      {
-        (verifyRecipe && verifyStart) && (
+      { verifyStart && (
+        <button
+          className="start-btn waves-effect waves-light btn-large lime darken-2"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ redirectPageDrink }
+        >
+          { btnValue }
+        </button>
+      )}
+      {/* {
+        verifyProgress && (
           <button
             type="button"
             data-testid="start-recipe-btn"
@@ -149,7 +175,8 @@ export default function DetailedDrink() {
             Continue Recipe
           </button>
         )
-      }
+      } */}
+      <LowerMenu />
     </div>
   );
 }

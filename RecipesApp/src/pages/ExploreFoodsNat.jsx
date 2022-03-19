@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-var */
 import React, { useState, useEffect, useContext } from 'react';
 // import { Link } from 'react-router-dom';
 import M from 'materialize-css';

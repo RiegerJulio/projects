@@ -5,7 +5,6 @@ import RecipesCardDrink from '../components/RecipesCardDrink';
 import Header from '../components/Header';
 
 import { fetchMealDetailsId } from '../services/fetchApi';
-// import { getLocalStorage } from '../services/localStorage';
 
 import MyContext from '../Context/MyContext';
 import DetailedFoodComponent from '../components/DetailedFoodComponent';
@@ -14,7 +13,6 @@ import DetailedFoodParagraph from '../components/DetailedFoodParagraph';
 import whiteHeartIcon from '../images/whiteHeartIcon.png';
 import blackHeartIcon from '../images/blackHeartIcon.png';
 
-// import '../App.css';
 import './css/detailsFoodsAndDrinks.css';
 import headerLogo from '../images/header-logo.png';
 
@@ -34,7 +32,7 @@ export default function DetailedFood() {
     verifyStart,
     testInprogressRecipesMeals,
     testDoneRecipes,
-    favFunc,
+    favFuncMeal,
     imageFav,
     setImageFav,
   } = useContext(MyContext);
@@ -52,19 +50,14 @@ export default function DetailedFood() {
       }
     }
   };
-  // const idURLLocation = history.location.pathname.split('/')[2];
+
   const recoverData = async () => {
     const recoverFetch = await fetchMealDetailsId(id);
-    // console.log([recoverFetch][0].strCategory);
     setItemRecovered([recoverFetch]);
     requestApiDrinks();
     testDoneRecipes(id);
     testInprogressRecipesMeals(id);
     testeFavorite();
-    // const getLocal = await getLocalStorage('doneRecipes');
-    // const getlocalRecipes = await getLocalStorage('inProgressRecipes');
-    // setVerifyRecipe(getlocalRecipes.meals[id] !== undefined);
-    // setVerifyStart(getLocal[0].id !== id);
   };
 
   useEffect(() => {
@@ -84,11 +77,6 @@ export default function DetailedFood() {
     history.push(`/foods/${id}/in-progress`);
   };
 
-  // const shareFunc = () => {
-  //   global.alert('Link copied!');
-  //   navigator.clipboard.writeText(history.location.pathname);
-  // };
-
   return (
     <div>
       <div className="header-container">
@@ -107,7 +95,7 @@ export default function DetailedFood() {
               strInstructions={ itemRecovered[0].strInstructions }
               strYoutube={ itemRecovered[0].strYoutube }
               // onClickShare={ shareFunc }
-              onClickFav={ favFunc }
+              onClickFav={ () => favFuncMeal(id) }
               iconFav={ imageFav }
             />)
           : (
@@ -120,7 +108,7 @@ export default function DetailedFood() {
               strInstructions=""
               strYoutube=""
               // onClickShare={ shareFunc }
-              onClickFav={ favFunc }
+              // onClickFav={ favFunc }
               iconFav={ imageFav }
             />
           )
@@ -138,7 +126,7 @@ export default function DetailedFood() {
           ))
         }
       </div>
-      <h5 className="category" data-testid="recipe-category">Experimente Com</h5>
+      <h5 className="category" data-testid="recipe-category">Try With</h5>
       {/* <div className="carousel-container"> */}
       <div className="carousel carousel-container">
         {
@@ -163,12 +151,11 @@ export default function DetailedFood() {
               .slice(0, SIX)
         }
       </div>
-      {/* </div> */}
       { verifyStart && (
         <button
+          className="start-btn waves-effect waves-light btn-large red darken-4"
           type="button"
           data-testid="start-recipe-btn"
-          style={ { position: 'fixed', bottom: '0px' } }
           onClick={ redirectPageFood }
         >
           { btnValue }

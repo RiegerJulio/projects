@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { HiShare } from 'react-icons/hi';
 import Youtube from './Youtube';
 
+const copy = require('clipboard-copy');
+
 export default function DetailedFoodComponent(props) {
+  const history = useHistory();
+  const [verifyLink, setVerifyLink] = useState(false);
+  const shareFunc = () => {
+    setVerifyLink(!verifyLink);
+    copy(`http://localhost:3000${history.location.pathname}`);
+  };
+
   const {
     index,
     strMeal,
@@ -12,23 +21,22 @@ export default function DetailedFoodComponent(props) {
     strCategory,
     strInstructions,
     strYoutube,
-    onClickShare,
+    // onClickShare,
     iconFav,
     onClickFav,
   } = props;
 
-  // const getID = (strYtb) => {
-  //   if (strYtb !== undefined) {
-  //     return strYtb.split('=')[1];
-  //   }
-  // };
-
   return (
     <section key={ index }>
-      <h1 data-testid="page-title" className="header-title">{strMeal}</h1>
+      <h1
+        data-testid="page-title"
+        className="header-title"
+      >
+        { strMeal !== null ? strMeal : '' }
+      </h1>
       <img
         className="img-recipe"
-        src={ strMealThumb }
+        src={ strMealThumb !== null ? strMealThumb : '' }
         alt="food"
         data-testid="recipe-photo"
       />
@@ -36,13 +44,14 @@ export default function DetailedFoodComponent(props) {
         <Link
           to="#t"
           data-testid="share-btn"
-          onClick={ onClickShare }
+          onClick={ shareFunc }
         >
           <HiShare size={ 40 } color="ffffff" />
         </Link>
         <Link
           to="#t"
           onClick={ onClickFav }
+          src={ iconFav }
         >
           <img
             className="heart-outline"
@@ -52,10 +61,23 @@ export default function DetailedFoodComponent(props) {
           />
         </Link>
       </div>
-      <h5 className="category" data-testid="recipe-category">{`#${strCategory}`}</h5>
+      { verifyLink && (
+        <p className="copy-info">Link copied!</p>
+      )}
+      <h5
+        className="category"
+        data-testid="recipe-category"
+      >
+        {`#${strCategory !== null ? strCategory : ''}`}
+      </h5>
       <div className="instructions-container">
         <h5 className="category" data-testid="recipe-category">Preparation</h5>
-        <p className="instructions" data-testid="instructions">{strInstructions}</p>
+        <p
+          className="instructions"
+          data-testid="instructions"
+        >
+          {strInstructions !== null ? strInstructions : '' }
+        </p>
       </div>
       <div className="youtube-box" data-testid="video">
         <Youtube video={ strYoutube !== undefined ? strYoutube.split('=')[1] : null } />

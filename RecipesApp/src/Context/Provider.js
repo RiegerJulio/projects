@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-// import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import MyContext from './MyContext';
 import { fetchMeals,
   fetchMealCategories,
@@ -12,7 +11,7 @@ import { fetchMeals,
 import RecipesCardFood from '../components/RecipesCardFood';
 import RecipesCardDrink from '../components/RecipesCardDrink';
 
-import { getLocalStorage } from '../services/localStorage';
+import { setLocalStorage, getLocalStorage } from '../services/localStorage';
 
 import whiteHeartIcon from '../images/whiteHeartIcon.png';
 import blackHeartIcon from '../images/blackHeartIcon.png';
@@ -136,9 +135,47 @@ function Provider({ children }) {
   };
 
   const [imageFav, setImageFav] = useState(whiteHeartIcon);
-  const favFunc = () => {
+  const favFuncDrink = (id) => {
     if (imageFav === whiteHeartIcon) {
       setImageFav(blackHeartIcon);
+      const favoriteRecipes = getLocalStorage('favoriteRecipes');
+      const newStorage = [
+        ...favoriteRecipes,
+        {
+          id,
+          type: 'drink',
+          nationality: itemRecovered[0].strArea ? itemRecovered[0].strArea : '',
+          category: itemRecovered[0].strCategory,
+          alcoholicOrNot: itemRecovered[0].strAlcoholic
+            ? itemRecovered[0].strAlcoholic : '',
+          name: itemRecovered[0].strDrink,
+          image: itemRecovered[0].strDrinkThumb,
+        },
+      ];
+      setLocalStorage('favoriteRecipes', newStorage);
+    } else {
+      setImageFav(whiteHeartIcon);
+    }
+  };
+
+  const favFuncMeal = (id) => {
+    if (imageFav === whiteHeartIcon) {
+      setImageFav(blackHeartIcon);
+      const favoriteRecipes = getLocalStorage('favoriteRecipes');
+      const newStorage = [
+        ...favoriteRecipes,
+        {
+          id,
+          type: 'food',
+          nationality: itemRecovered[0].strArea,
+          category: itemRecovered[0].strCategory,
+          alcoholicOrNot: itemRecovered[0].strAlcoholic
+            ? itemRecovered[0].strAlcoholic : '',
+          name: itemRecovered[0].strMeal,
+          image: itemRecovered[0].strMealThumb,
+        },
+      ];
+      setLocalStorage('favoriteRecipes', newStorage);
     } else {
       setImageFav(whiteHeartIcon);
     }
@@ -181,7 +218,8 @@ function Provider({ children }) {
     testInprogressRecipesCocktails,
     btnValue,
     verifyStart,
-    favFunc,
+    favFuncDrink,
+    favFuncMeal,
     imageFav,
     setImageFav,
   };
