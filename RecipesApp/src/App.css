@@ -1,0 +1,30 @@
+.footer {
+  bottom: 0;
+  position: fixed;
+}
+
+/* .recomendations {
+  height: 325px;
+  overflow-x: scroll auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  margin-bottom: 40px;
+}
+
+.recomendations img {
+  width: 100px;
+} */
+
+.recomendations {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.recomendations img {
+  width: 180px;
+}
+
+.food-img {
+  width: 100px;
+}

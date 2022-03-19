@@ -128,7 +128,9 @@ class App extends React.Component {
             }
           </div>
         </div>
-        <h1>Julio Rieger, T17</h1>
+        <footer>
+          <h1>Julio Rieger, T17</h1>
+        </footer>
       </div>
     );
   }
