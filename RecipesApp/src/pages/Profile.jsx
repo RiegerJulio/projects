@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import { getLocalStorage } from '../services/localStorage';
@@ -8,7 +8,7 @@ import headerLogo from '../images/header-logo.png';
 import { Link } from 'react-router-dom';
 
 function Profile() {
-  const history = useHistory();
+  // const history = useHistory();
   const Email = getLocalStorage('user') || { email: '' };
 
   const Logout = () => {

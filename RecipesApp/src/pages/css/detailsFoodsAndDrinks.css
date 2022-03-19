@@ -63,3 +63,9 @@
 .label-color {
   color: white;
 }
+
+.done-recipes-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3vh;
+}

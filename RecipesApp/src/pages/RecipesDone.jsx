@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
+import headerLogo from '../images/header-logo.png';
 import { getLocalStorage } from '../services/localStorage';
+import LowerMenu from '../components/LowerMenu';
+
+import '../pages/css/detailsFoodsAndDrinks.css';
 
 const copy = require('clipboard-copy');
 
@@ -32,29 +36,50 @@ function RecipesDone() {
   };
 
   return (
-    <>
-      <Header title="Done Recipes" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => setWordFilter('') }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => setWordFilter('food') }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => setWordFilter('drink') }
-      >
-        Drinks
-      </button>
+    <div>
+      <div className="header-container">
+        <Header/>
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
+      <h1 data-testid="page-title" className="header-title">Recipes Done</h1>
+      <div className="done-recipes-container">
+        <button
+          className="waves-effect waves-light btn-large red darken-4"
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setWordFilter('') }
+        >
+          <span
+            className="btn-explore-text"
+          >
+            All
+          </span>
+        </button>
+        <button
+          className="waves-effect waves-light btn-large brown darken-4"
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setWordFilter('food') }
+        >
+          <span
+            className="btn-explore-text"
+          >
+          Food
+          </span>
+        </button>
+        <button
+          className="waves-effect waves-light btn-large lime darken-2"
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setWordFilter('drink') }
+        >
+          <span
+            className="btn-explore-text"
+          >
+          Drinks
+          </span>
+        </button>
+      </div>
       {
         storeDoneRecipe !== undefined
         && storeDoneRecipe
@@ -116,7 +141,8 @@ function RecipesDone() {
             </section>
           ))
       }
-    </>
+      <LowerMenu />
+    </div>
   );
 }
 

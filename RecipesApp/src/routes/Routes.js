@@ -18,6 +18,7 @@ import ExploreFoodsNat from '../pages/ExploreFoodsNat';
 import FoodsInProgress from '../pages/FoodsInProgress';
 import DrinksInProgress from '../pages/DrinksInProgress';
 import Error from '../pages/Error';
+import EndMessage from '../pages/EndMessage';
 
 export default function Routes() {
   return (
@@ -40,6 +41,7 @@ export default function Routes() {
       <Route exact path="/foods/:id/in-progress" component={ FoodsInProgress } />
       <Route exact path="/drinks/:id/in-progress" component={ DrinksInProgress } />
       <Route exact path="/explore/drinks/nationalities" component={ Error } />
+      <Route exact path="/end-message" component={ EndMessage } />
       {/*
       {/* <Route exact path="/headertest" component={ AllHeader } />
       */}

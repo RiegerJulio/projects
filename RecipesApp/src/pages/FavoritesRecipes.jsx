@@ -5,6 +5,8 @@ import { getLocalStorage, setLocalStorage } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+import headerLogo from '../images/header-logo.png';
+import LowerMenu from '../components/LowerMenu';
 const copy = require('clipboard-copy');
 
 function FavoritesRecipes() {
@@ -39,29 +41,50 @@ function FavoritesRecipes() {
   };
 
   return (
-    <>
-      <Header title="Favorite Recipes" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => setWordFilter('') }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => setWordFilter('food') }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => setWordFilter('drink') }
-      >
-        Drinks
-      </button>
+    <div>
+      <div className="header-container">
+        <Header/>
+        <img src={ headerLogo } alt="header logo" className="header-logo" />
+      </div>
+      <h1 data-testid="page-title" className="header-title">Favorite Recipes</h1>
+      <div className="done-recipes-container">
+        <button
+          className="waves-effect waves-light btn-large red darken-4"
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setWordFilter('') }
+        >
+          <span
+            className="btn-explore-text"
+          >
+          All
+          </span>
+        </button>
+        <button
+          className="waves-effect waves-light btn-large brown darken-4"
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setWordFilter('food') }
+        >
+          <span
+            className="btn-explore-text"
+          >
+          Food
+          </span>
+        </button>
+        <button
+          className="waves-effect waves-light btn-large lime darken-2"
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setWordFilter('drink') }
+        >
+          <span
+            className="btn-explore-text"
+          >
+          Drinks
+          </span>
+        </button>
+      </div>
       {
         (storeFavoriteRecipes !== undefined && storeFavoriteRecipes.length > 0)
         && storeFavoriteRecipes
@@ -119,7 +142,8 @@ function FavoritesRecipes() {
             </section>
           ))
       }
-    </>
+      <LowerMenu />
+    </div>
   );
 }
 

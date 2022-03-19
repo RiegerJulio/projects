@@ -99,16 +99,17 @@ export default function InProgressDrinkComponent(props) {
         </p>
       </div>
       {
-        <button
+        <Link
+          to="/end-message"
           // disabled={ doneRecipe }
           data-testid="finish-recipe-btn"
           type="button"
           className="start-btn waves-effect waves-light btn-large red darken-4"
           // className="button-finish-recipe"
-          onClick={ () => onButtonClickFinish }
+          // onClick={ () => onButtonClickFinish }
         >
-          Finalizar Receita
-        </button>
+          End Recipe
+        </Link>
       }
     </section>
   );
