@@ -112,11 +112,11 @@ export default function IngredientsList() {
               <label
                 key={ index }
                 htmlFor={ index }
-                className={ checkIngredientsInStorage(name)
-                  ? 'selection_label line-through' : 'selection_label' }
+                className='label-color'
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
+                  className="filled-in red"
                   id={ index }
                   key={ index }
                   type="checkbox"
@@ -126,7 +126,7 @@ export default function IngredientsList() {
                   } }
                   value={ `${name}-medida-${measure}` }
                 />
-                <span>{`${name}${' - '}${measure}`}</span>
+                <span className="checkbox-style">{`${name}${' - '}${measure}`}</span>
               </label>
             </p>
           );

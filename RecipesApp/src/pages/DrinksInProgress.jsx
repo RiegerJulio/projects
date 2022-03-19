@@ -1,14 +1,19 @@
 import React, { useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import InProgressDrinkComponent from '../components/InProgressDrinkComponent';
 import { fetchDrinkDetailsId } from '../services/fetchApi';
+import LowerMenu from '../components/LowerMenu';
 
 export default function DrinksInProgress() {
   const {
     itemRecovered,
     setItemRecovered,
+    imageFav,
+    favFuncDrink,
   } = useContext(MyContext);
+
+  const { id } = useParams();
 
   const history = useHistory();
   const idURLLocation = history.location.pathname.split('/')[2];
@@ -32,9 +37,12 @@ export default function DrinksInProgress() {
             strDrinkThumb={ it.strDrinkThumb }
             strCategory={ it.strCategory }
             strInstructions={ it.strInstructions }
+            iconFav={ imageFav }
+            onClickFav={ () => favFuncDrink(id) }
           />
         ))
       }
+      <LowerMenu />
     </div>
   );
 }
