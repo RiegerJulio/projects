@@ -24,9 +24,10 @@ function Search() {
     inputSearch,
     setInputSearch,
     setButtonValue,
+    toggleShowBar,
   } = useContext(MyContext);
 
-  const [toggleShowBar, setToggleShowBar] = useState(false);
+  // const [toggleShowBar, setToggleShowBar] = useState(false);
 
   const recoverData = async (func1, func2) => {
     const mealsOrDrinks = kind === '/drinks/'
@@ -59,16 +60,6 @@ function Search() {
 
   return (
     <section>
-      <button
-        className="btn-search"
-        type="button"
-        data-testid="search-top-btn"
-        // src={ searchIcon }
-        onClick={ () => setToggleShowBar(!toggleShowBar) }
-      >
-        <HiSearchCircle size={ 40 } color="#ffffff" />
-        {/* <img src={ searchIcon } alt="search icon" /> */}
-      </button>
       { toggleShowBar ? (
         <div className="search-container">
           <div className="search-group">

@@ -90,6 +90,7 @@ export default function DetailedDrink() {
       <div className="header-container">
         <Header title="Explore" />
         <img src={ headerLogo } alt="header logo" className="header-logo" />
+        <div className="white-space"/>
       </div>
       {
         itemRecovered.length === 1 ? (

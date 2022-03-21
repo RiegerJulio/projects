@@ -3,18 +3,6 @@
   position: fixed;
 }
 
-/* .recomendations {
-  height: 325px;
-  overflow-x: scroll auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  margin-bottom: 40px;
-}
-
-.recomendations img {
-  width: 100px;
-} */
-
 .recomendations {
   display: flex;
   flex-direction: row;
@@ -27,4 +15,8 @@
 
 .food-img {
   width: 100px;
+}
+
+.white-space {
+  width: 40px;
 }

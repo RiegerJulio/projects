@@ -31,6 +31,7 @@ function Provider({ children }) {
   const [kind, setKind] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [buttonValue, setButtonValue] = useState('');
+  const [toggleShowBar, setToggleShowBar] = useState(false);
 
   const verify = () => {
     const te = itemRecovered.length === 1
@@ -222,6 +223,8 @@ function Provider({ children }) {
     favFuncMeal,
     imageFav,
     setImageFav,
+    toggleShowBar,
+    setToggleShowBar,
   };
 
   useEffect(() => {

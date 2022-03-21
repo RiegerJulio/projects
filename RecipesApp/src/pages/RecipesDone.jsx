@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
+import MyContext from '../Context/MyContext';
+import RecipesCardDrink from '../components/RecipesCardDrink';
+import RecipesCardFood from '../components/RecipesCardFood';
 
 import headerLogo from '../images/header-logo.png';
 import { getLocalStorage } from '../services/localStorage';
 import LowerMenu from '../components/LowerMenu';
+
 
 import '../pages/css/detailsFoodsAndDrinks.css';
 
@@ -16,6 +20,7 @@ function RecipesDone() {
   const [verify, setVerify] = useState(false);
   const [wordFilter, setWordFilter] = useState('');
   const history = useHistory();
+  const { drinksArray, mealsArray } = useContext(MyContext);
 
   const myFunc = async () => {
     const getDoneRecipes = await getLocalStorage('doneRecipes');
@@ -40,6 +45,7 @@ function RecipesDone() {
       <div className="header-container">
         <Header/>
         <img src={ headerLogo } alt="header logo" className="header-logo" />
+        <div className="white-space"/>
       </div>
       <h1 data-testid="page-title" className="header-title">Recipes Done</h1>
       <div className="done-recipes-container">
@@ -141,6 +147,26 @@ function RecipesDone() {
             </section>
           ))
       }
+      <div className="mockup-done">
+        {
+          drinksArray.length > 0 &&
+          <RecipesCardDrink
+          idDrink={ drinksArray[12].idDrink }
+          strDrink={ drinksArray[12].strDrink }
+          strDrinkThumb={ drinksArray[12].strDrinkThumb }
+          index={ 0 }
+        />
+        }
+        {
+          mealsArray.length > 0 &&
+          <RecipesCardFood
+          idMeal={ mealsArray[8].idMeal }
+          strMeal={ mealsArray[8].strMeal }
+          strMealThumb={ mealsArray[8].strMealThumb }
+          index={ 0 }
+        />
+        }
+      </div>
       <LowerMenu />
     </div>
   );

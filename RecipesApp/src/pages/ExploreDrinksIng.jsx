@@ -49,6 +49,7 @@ export default function ExploreFoodsIng() {
       <div className="header-container">
         <Header title="Explore" />
         <img src={ headerLogo } alt="header logo" className="header-logo" />
+        <div className="white-space"/>
       </div>
       <div className="carousel carousel-ing">
         {initialIngredients

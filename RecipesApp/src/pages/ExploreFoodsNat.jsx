@@ -4,7 +4,7 @@ import M from 'materialize-css';
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import RecipesCardFood from '../components/RecipesCardFood';
-import Search from '../components/Search';
+// import Search from '../components/Search';
 import MyContext from '../Context/MyContext';
 import {
   fetchMealNationalities,
@@ -59,7 +59,8 @@ export default function ExploreFoodsNat() {
       <div className="header-container">
         <Header title="Search for Foods" />
         <img src={ headerLogo } alt="header logo" className="header-logo" />
-        <Search />
+        {/* <Search /> */}
+        <div className="white-space"/>
       </div>
       <div className="select-container">
         <select
