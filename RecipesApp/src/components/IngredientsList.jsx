@@ -1,105 +1,70 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getLocalStorage, setLocalStorage } from '../services/localStorage';
 import MyContext from '../Context/MyContext';
 import '../App.css';
 
-function reduceArrayForIngredients(array, item) {
-  return array.reduce((data, key) => {
-    const str = item[0][key];
-    const condition = (key.includes('strIngredient') && str !== '' && str !== null);
-    return (condition) ? data.concat(str) : data;
-  }, []);
-}
-
-function reduceArrayForMeasures(array, item) {
-  return array.reduce((data, key) => {
-    const str = (
-      item[0][key] !== ' ' && item[0][key] !== null
-    ) ? item[0][key] : '';
-    const condition = key.includes('strMeasure');
-    return (condition) ? data.concat(str) : data;
-  }, []);
-}
-
 export default function IngredientsList() {
-  const { itemRecovered } = useContext(MyContext);
+  const {
+    itemRecovered,
+    // verify,
+    // inProgressRecipes,
+    // setInProgressRecipes,
+  } = useContext(MyContext);
+
   const { id } = useParams();
-  const [list, setList] = useState([]);
-  // const [render, setRender] = useState();
-  const [ingredientsStore, setIngredientsStore] = useState([]);
   const history = useHistory();
-  const typeOfRecipe = history.location.pathname.split('/')[1];
-  const type = typeOfRecipe === 'drinks' ? 'cocktails' : 'meals';
+  const [check, setCheck] = useState({});
+  // const [listIngredientesCheck, setListIngredientesCheck] = useState(['']);
 
-  // const verifyRender = () => {
-  //   const storage = {
-  //     meals: {},
-  //     cocktails: {},
-  //   };
-  //   const inProgressRecipes = getLocalStorage('inProgressRecipes');
-  //   if (inProgressRecipes === null) {
-  //     return setRender(true);
-  //   }
-  //   // const createInProgressRecipes = setLocalStorage('inProgressRecipes', storage);
-  //   if (render) {
-  //     setRender(false);
-  //     console.log('alterando render');
-  //     return setLocalStorage('inProgressRecipes', storage);
-  //   }
-  // };
-
-  useEffect(() => {
+  // Criação do array de ingredientes com o controle checked
+  const createIngredientList = () => {
     const keys = Object.keys(itemRecovered[0]);
-    const ingredientsName = reduceArrayForIngredients(keys, itemRecovered);
-    const measures = reduceArrayForMeasures(keys, itemRecovered);
+    // console.log(keys);
+    const ingredientsName = keys.reduce((array, key) => {
+      const str = itemRecovered[0][key];
+      // console.log(str);
+      const condition = (key.includes('strIngredient') && str !== '' && str !== null);
+      return (condition) ? array.concat(str) : array;
+    }, []);
+    // console.log(ingredientsName);
+    const measures = keys.reduce((array, key) => {
+      const str = (
+        itemRecovered[0][key] !== ' ' && itemRecovered[0][key] !== null
+      ) ? itemRecovered[0][key] : '';
+      const condition = key.includes('strMeasure');
+      return (condition) ? array.concat(str) : array;
+    }, []);
+    // console.log(measures);
     const ingredients = ingredientsName.map((name, index) => ({
       name,
       measure: measures[index],
       checked: false,
     }));
-    setList(ingredients);
-    // verifyRender();
-  }, [itemRecovered]);
+    // console.log(ingredients);
+    return ingredients;
+  };
+  const list = createIngredientList();
 
   const handleCheckBox = (target) => {
-    const { value, checked } = target;
-    console.log(target);
-    const inProgressRecipes = getLocalStorage('inProgressRecipes');
-    if (checked === true) {
-      const newStorage = {
-        ...inProgressRecipes,
-        [type]: {
-          ...inProgressRecipes[type],
-          [id]:
-            inProgressRecipes[type][id] === undefined
-              ? [value]
-              : [...inProgressRecipes[type][id], value],
-        },
-      };
-      setIngredientsStore([...ingredientsStore, value]);
-      return setLocalStorage('inProgressRecipes', newStorage);
+    const { value } = target;
+    if (check[value] === undefined) {
+      check[value] = true;
+    } else {
+      check[value] = !check[value];
     }
-    const newStorage = {
-      ...inProgressRecipes,
-      [type]: {
-        ...inProgressRecipes[type],
-        [id]:
-          inProgressRecipes[type][id].filter((item) => item !== value),
-      },
-    };
-    setIngredientsStore(ingredientsStore.filter((item) => item !== value));
-    return setLocalStorage('inProgressRecipes', newStorage);
-  };
-
-  const checkIngredientsInStorage = (name) => {
-    const inProgressRecipes = getLocalStorage('inProgressRecipes');
-    if (inProgressRecipes === null) {
-      return false;
-    }
-    return inProgressRecipes[type][id]
-      ? inProgressRecipes[type][id].some((item) => item.includes(name)) : false;
+    target.parentElement.classList.toggle('line-through');
+    setCheck(check);
+    console.log(target.value);
+    console.log(Object.entries(check));
+    setLocalStorage('check', check);
+    const type = history.location.pathname.split('/')[1];
+    const nameChave = type === 'drinks' ? 'cocktails' : 'meals';
+    setLocalStorage('inProgressRecipes', { [nameChave]: { [id]: [target.value] } }); // trocar target.value por array com os ingrientes
+    const inProgressRecipes3 = getLocalStorage('inProgressRecipes');
+    const arrayIngredientsId = inProgressRecipes3[nameChave];
+    console.log(arrayIngredientsId);
   };
 
   return (
@@ -112,18 +77,16 @@ export default function IngredientsList() {
               <label
                 key={ index }
                 htmlFor={ index }
+                // className="selection_label"
                 className='label-color'
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  className="filled-in red"
                   id={ index }
                   key={ index }
                   type="checkbox"
-                  checked={ checkIngredientsInStorage(name) }
-                  onChange={ (e) => {
-                    handleCheckBox(e.target);
-                  } }
+                  className="filled-in red"
+                  onChange={ ({ target }) => handleCheckBox(target) }
                   value={ `${name}-medida-${measure}` }
                 />
                 <span className="checkbox-style">{`${name}${' - '}${measure}`}</span>

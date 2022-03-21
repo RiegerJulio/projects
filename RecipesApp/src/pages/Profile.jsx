@@ -27,6 +27,7 @@ function Profile() {
       <div className="header-container">
         <Header/>
         <img src={ headerLogo } alt="header logo" className="header-logo" />
+        <div className="white-space"/>
       </div>
       <h1 data-testid="profile-email" className="header-title">
         { Object.values(Email) }

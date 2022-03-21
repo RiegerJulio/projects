@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
-import Search from '../components/Search';
+// import Search from '../components/Search';
 
 import headerLogo from '../images/header-logo.png';
 
@@ -11,9 +11,9 @@ export default function EndMessage() {
   return (
     <div>
        <div className="header-container">
-        <Header title="Search for Foods" />
+        <Header />
         <img src={ headerLogo } alt="header logo" className="header-logo" />
-        <Search />
+        <div className="white-space"/>
       </div>
       <div className="end-message">
         <h1 className="header-title">

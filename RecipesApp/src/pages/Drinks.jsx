@@ -5,6 +5,8 @@ import M from 'materialize-css';
 import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 import ButtonCategory from '../components/ButtonCategory';
+import ButtonShowBar from '../components/ButtonShowBar';
+import Search from '../components/Search';
 
 import './css/foodsAndDrinks.css';
 import './css/header.css';
@@ -16,7 +18,6 @@ import {
   fetchDrinksCategory } from '../services/fetchApi';
 
 import MyContext from '../Context/MyContext';
-import Search from '../components/Search';
 
 export default function Drinks() {
   const { initialCategoriesDrink,
@@ -58,13 +59,14 @@ export default function Drinks() {
       <div className="header-container">
         <Header title="Drinks" renderSearchBtn="true" />
         <img src={ headerLogo } alt="header logo" className="header-logo" />
-        <Search />
+        <ButtonShowBar />
       </div>
+        <Search />
       <h1 data-testid="page-title" className="header-title">Search Drinks</h1>
       <ul className="collapsible red darken-4 collapse-foods">
         <li>
           <div className="collapsible-header red darken-4">
-            Categorias
+            Categories
           </div>
           <div className="collapsible-body">
             <div className="btn-header-container">
