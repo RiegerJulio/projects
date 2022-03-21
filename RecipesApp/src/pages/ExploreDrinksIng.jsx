@@ -51,6 +51,7 @@ export default function ExploreFoodsIng() {
         <img src={ headerLogo } alt="header logo" className="header-logo" />
         <div className="white-space"/>
       </div>
+      <h1 data-testid="page-title" className="header-title">Choose Ingredient</h1>
       <div className="carousel carousel-ing">
         {initialIngredients
           .map((ingredient, index) => (
