@@ -37,14 +37,12 @@ validateTalk, validateTalkFields, async (req, res) => {
 router.put('/:id', tokenValidation, validateName, validateAge,
 validateTalk, validateTalkFields, async (req, res) => {
   const { id } = req.params;
-  const { name, age, talk } = req.body;
   const talkers = await getTalkers();
-  const findTalker = getTalkers.find((talker) => talker.id === id);
-  findTalker.name = name;
-  findTalker.age = age;
-  findTalker.talk = talk;
-  await setTalkers([...talkers]);
-  return res.status(200).send(findTalker);
+  const edit = { ...req.body, id: Number(id) };
+  const oldTalkers = talkers.filter((talker) => talker.id !== Number(id));
+  const newTalkers = [...oldTalkers, edit];
+  await setTalkers(newTalkers);
+  res.status(200).json(edit);
 });
 
 module.exports = router;
