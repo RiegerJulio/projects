@@ -11,6 +11,16 @@ router.get('/', async (_req, res) => {
   res.status(200).json(talkers);
 });
 
+router.get('/search', tokenValidation, async (req, res) => {
+  const { q } = req.query;
+  const talkers = await getTalkers();
+  const filter = talkers.filter((talker) => talker.name.includes(q));
+  if (!q || !filter) {
+    return res.status(200).json(talkers);
+  }
+  res.status(200).json(filter);
+});
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const talkers = await getTalkers();
@@ -38,11 +48,22 @@ router.put('/:id', tokenValidation, validateName, validateAge,
 validateTalk, validateTalkFields, async (req, res) => {
   const { id } = req.params;
   const talkers = await getTalkers();
+
   const edit = { ...req.body, id: Number(id) };
   const oldTalkers = talkers.filter((talker) => talker.id !== Number(id));
   const newTalkers = [...oldTalkers, edit];
+
   await setTalkers(newTalkers);
+
   res.status(200).json(edit);
+});
+
+router.delete('/:id', tokenValidation, async (req, res) => {
+  const { id } = req.params;
+  const talkers = await getTalkers();
+  const deleteById = talkers.find((talker) => talker.id !== Number(id));
+  await setTalkers(deleteById);
+  res.status(204).json();
 });
 
 module.exports = router;
