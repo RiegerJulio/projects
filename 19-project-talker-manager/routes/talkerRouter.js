@@ -1,6 +1,9 @@
 const router = require('express').Router();
 
-const { getTalkers } = require('../utils/talkerUtils');
+const { getTalkers, setTalkers } = require('../utils/talkerUtils');
+const { tokenValidation } = require('../middlewares/tokenMiddleware');
+const { validateName, validateAge,
+validateTalk, validateTalkFields } = require('../controllers/talkerController');
 
 router.get('/', async (_req, res) => {
   const talkers = await getTalkers();
@@ -18,5 +21,30 @@ router.get('/:id', async (req, res) => {
   }
   res.status(200).json(talker);
 });
+
+router.post('/', tokenValidation, validateName, validateAge,
+  validateTalk, validateTalkFields, async (req, res) => {
+  const { name, age, talk: { watchedAt, rate } } = req.body;
+  const talkers = await getTalkers();
+
+  await setTalkers([
+    ...talkers,
+    { name, age, id: talkers.length + 1, talk: { watchedAt, rate } },
+  ]);
+
+  res.status(201).send({ name, age, id: talkers.length + 1, talk: { watchedAt, rate } });
+});
+
+// router.post('/', tokenValidation, validateName, validateAge,
+// validateTalk, validateTalkFields, async (req, res) => {
+//   const { name, age, talk } = req.body;
+//   const talkers = await getTalkers();
+//   const talker = { name, age, id: (talkers.length + 1), talk };
+
+//   talkers.push(talker);
+//   await setTalkers(talkers);
+
+//   return res.status(201).json(talker);
+// });
 
 module.exports = router;
