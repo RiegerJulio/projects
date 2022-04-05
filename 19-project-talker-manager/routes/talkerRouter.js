@@ -23,28 +23,28 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', tokenValidation, validateName, validateAge,
-  validateTalk, validateTalkFields, async (req, res) => {
-  const { name, age, talk: { watchedAt, rate } } = req.body;
+validateTalk, validateTalkFields, async (req, res) => {
+  const { name, age, talk } = req.body;
   const talkers = await getTalkers();
+  const talker = { name, age, id: (talkers.length + 1), talk };
 
-  await setTalkers([
-    ...talkers,
-    { name, age, id: talkers.length + 1, talk: { watchedAt, rate } },
-  ]);
+  talkers.push(talker);
+  await setTalkers(talkers);
 
-  res.status(201).send({ name, age, id: talkers.length + 1, talk: { watchedAt, rate } });
+  return res.status(201).json(talker);
 });
 
-// router.post('/', tokenValidation, validateName, validateAge,
-// validateTalk, validateTalkFields, async (req, res) => {
-//   const { name, age, talk } = req.body;
-//   const talkers = await getTalkers();
-//   const talker = { name, age, id: (talkers.length + 1), talk };
-
-//   talkers.push(talker);
-//   await setTalkers(talkers);
-
-//   return res.status(201).json(talker);
-// });
+router.put('/:id', tokenValidation, validateName, validateAge,
+validateTalk, validateTalkFields, async (req, res) => {
+  const { id } = req.params;
+  const { name, age, talk } = req.body;
+  const talkers = await getTalkers();
+  const findTalker = getTalkers.find((talker) => talker.id === id);
+  findTalker.name = name;
+  findTalker.age = age;
+  findTalker.talk = talk;
+  await setTalkers([...talkers]);
+  return res.status(200).send(findTalker);
+});
 
 module.exports = router;

@@ -47,9 +47,7 @@ const validateTalk = (req, res, next) => {
 const validateTalkFields = (req, res, next) => {
   const { talk } = req.body;
   const { watchedAt, rate } = talk;
-  // REF: https://stackoverflow.com/questions/5465375/javascript-date-regex-dd-mm-yyyy
-  // const dateReg = /^(0?[1-9]|[12][0-9]|3[01])(0?[1-9]|1[012])\d{4}$/;
-  // const dateReg = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+  // REF: https://www.regextester.com/99555
   const dateReg = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
 
   if (!watchedAt || !rate) {
