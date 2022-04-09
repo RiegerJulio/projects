@@ -7,7 +7,8 @@ const getAll = async () => {
 
 const getById = async (id) => {
   const [result] = await connection.execute('SELECT * FROM products WHERE id = ?', [id]);
-  return result[0];
+  return result;
+  // if (products.length === 0) return null;
 };
 
 module.exports = { getAll, getById };

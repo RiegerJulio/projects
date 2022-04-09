@@ -29,7 +29,15 @@ describe("02-list", () => {
   });
 
   afterAll(async () => {
+
+    const importer = new Importer({
+      user: MYSQL_USER,
+      password: MYSQL_PASSWORD,
+      host: MYSQL_HOST,
+    });
+    
     await connection.execute("DROP DATABASE StoreManager");
+    await importer.import("./StoreManager.sql");
     await connection.end();
   });
 

@@ -8,10 +8,11 @@ router.get('/', async (_req, res, _next) => {
 });
 
 router.get('/:id', async (req, res, _next) => {
-  const product = await productService.getById(req.params.id);
+  const { id } = req.params;
+  const product = await productService.getById(id);
 
-  if (product === null) {
-    res.status(404).send({ message: 'Not found' });
+  if (!product || product.length === 0) {
+    res.status(404).send({ message: 'Product not found' });
   }
   res.status(200).json(product);
 });
