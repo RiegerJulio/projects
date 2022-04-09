@@ -1,7 +1,7 @@
 const saleModel = require('../models/saleModel');
 
 const salesFormatting = (sales) => ({
-  saleId: sales.id,
+  saleId: sales.sale_id,
   date: sales.date,
   productId: sales.product_id,
   quantity: sales.quantity,
