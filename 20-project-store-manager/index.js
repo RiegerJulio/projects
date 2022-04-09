@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-const productController = require('./controllers/productController');
+const { routerProduct } = require('./controllers/productController');
 const saleController = require('./controllers/saleController');
 
 const app = express();
@@ -12,7 +12,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.use('/products', productController);
+app.use('/products', routerProduct);
 app.use('/sales', saleController);
 
 app.listen(process.env.PORT, () => {
