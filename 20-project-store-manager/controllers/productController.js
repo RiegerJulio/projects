@@ -25,6 +25,25 @@ const createProduct = async (req, res) => {
   res.status(201).json(product);
 };
 
+const updateProduct = async (req, res) => {
+  const { name, quantity } = req.body;
+  const { id } = req.params;
+  const product = await productService.updateProduct({ id, name, quantity });
+  if (!product) {
+    res.status(404).send({ message: 'Product not found' });
+  }
+  res.status(200).json(product);
+};
+
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  const product = await productService.deleteProduct(id);
+  if (product === null) {
+    res.status(404).send({ message: 'Product not found' });
+  }
+  res.status(204).send();
+};
+
 // router.get('/', async (_req, res, _next) => {
 //   const products = await productService.getAll();
 
@@ -45,6 +64,9 @@ routerProduct.get('/', getAll);
 routerProduct.get('/:id', getById);
 routerProduct.post('/', productsValidation.nameValidation,
   productsValidation.quantityValidation, createProduct);
+routerProduct.put('/:id', productsValidation.nameValidation,
+  productsValidation.quantityValidation, updateProduct);
+routerProduct.delete('/:id', deleteProduct);
 
 module.exports = {
   routerProduct,
