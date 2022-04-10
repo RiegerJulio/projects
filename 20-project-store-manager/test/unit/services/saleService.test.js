@@ -53,4 +53,17 @@ describe ('test the sale service layer', () => {
       expect (result).to.be.an('array');
     });
   });
+
+  // describe('test the getById function null', () => {
+  //   before(() => {
+  //     sinon.stub(saleModel, 'getById').resolves(null);
+  //   });
+  //   after(() => {
+  //     saleModel.getById.restore();
+  //   });
+  //   it('should return null in sales', async () => {
+  //     const result = await saleService.getById();
+  //     expect(result).to.be.null;
+  //   });
+  // });
 });

@@ -48,4 +48,17 @@ describe('test the product service layer', () => {
       expect(result).to.be.an('object');
     });
   });
+
+  describe('test the getById function null', () => {
+    before(() => {
+      sinon.stub(productModel, 'getById').resolves(null);
+    });
+    after(() => {
+      productModel.getById.restore();
+    });
+    it('should return null in products', async () => {
+      const result = await productService.getById();
+      expect(result).to.be.null;
+    });
+  });
 });
