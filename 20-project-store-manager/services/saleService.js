@@ -26,4 +26,23 @@ const getById = async (id) => {
   return sale.map(salesFormattingId);
 };
 
-module.exports = { getAll, getById };
+const createSale = async (sales) => {
+  const saleId = await saleModel.createSaleId();
+  await sales.forEach((sale) => saleModel.createSale(saleId, sale.productId, sale.quantity));
+  return ({ id: saleId, itemsSold: sales });
+};
+
+const updateSale = async (id, sale) => {
+  const result = sale.forEach((sales) => saleModel.updateSale(id, sales.productId, sales.quantity));
+  return result;
+};
+
+const deleteSale = async (id) => {
+  const result = await getById(id);
+  if (result.length <= 0) {
+    return null;
+  }
+  return saleModel.deleteSale(id);
+};
+
+module.exports = { getAll, getById, createSale, updateSale, deleteSale };
