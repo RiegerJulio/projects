@@ -1,5 +1,6 @@
 const routerProduct = require('express').Router();
 const productService = require('../services/productService');
+const productsValidation = require('../middlewares/productsValidation');
 
 const getAll = async (req, res) => {
   const products = await productService.getAll();
@@ -13,6 +14,15 @@ const getById = async (req, res) => {
     res.status(404).send({ message: 'Product not found' });
   }
   res.status(200).json(product);
+};
+
+const createProduct = async (req, res) => {
+  const { name, quantity } = req.body;
+  const product = await productService.createProduct({ name, quantity });
+  if (!product) {
+    res.status(409).send({ message: 'Product already exists' });
+  }
+  res.status(201).json(product);
 };
 
 // router.get('/', async (_req, res, _next) => {
@@ -33,9 +43,12 @@ const getById = async (req, res) => {
 
 routerProduct.get('/', getAll);
 routerProduct.get('/:id', getById);
+routerProduct.post('/', productsValidation.nameValidation,
+  productsValidation.quantityValidation, createProduct);
 
 module.exports = {
   routerProduct,
   getAll,
   getById,
+  createProduct,
 };
