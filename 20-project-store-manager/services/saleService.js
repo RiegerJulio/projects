@@ -32,4 +32,17 @@ const createSale = async (sales) => {
   return ({ id: saleId, itemsSold: sales });
 };
 
-module.exports = { getAll, getById, createSale };
+const updateSale = async (id, sale) => {
+  const result = sale.forEach((sales) => saleModel.updateSale(id, sales.productId, sales.quantity));
+  return result;
+};
+
+const deleteSale = async (id) => {
+  const result = await getById(id);
+  if (result.length <= 0) {
+    return null;
+  }
+  return saleModel.deleteSale(id);
+};
+
+module.exports = { getAll, getById, createSale, updateSale, deleteSale };
