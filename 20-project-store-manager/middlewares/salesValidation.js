@@ -1,7 +1,7 @@
-const productIdValidation = (req, res, next) => {
+const saleIdValidation = (req, res, next) => {
   try {
-    const { productId } = req.params;
-    if (!productId) {
+    const findProductId = req.body.find(({ productId }) => productId);
+    if (!findProductId) {
       return res.status(400).json({ message: '"productId" is required' });
     }
     next();
@@ -12,11 +12,13 @@ const productIdValidation = (req, res, next) => {
 
 const quantityValidation = (req, res, next) => {
   try {
-    const { quantity } = req.body;
-    if (!quantity && typeof quantity !== 'number') {
+    const findQuantity = req.body.find(({ quantity }) => quantity);
+    const findQuantityNumber = req.body.find(({ quantity }) => quantity > 0);
+
+    if (!findQuantity) {
       return res.status(400).json({ message: '"quantity" is required' });
     }
-    if (quantity < 1) {
+    if (!findQuantityNumber) {
       return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
     }
     next();
@@ -26,6 +28,6 @@ const quantityValidation = (req, res, next) => {
 };
 
 module.exports = {
-  productIdValidation,
+  saleIdValidation,
   quantityValidation,
 };
