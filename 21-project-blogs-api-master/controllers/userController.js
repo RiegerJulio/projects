@@ -35,8 +35,7 @@ const findById = async (req, res) => {
 
 const userLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await userService.userLogin(email, password);
+    const user = await userService.userLogin(req.body);
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json({ message: error.message });
