@@ -65,14 +65,18 @@ const checkPasswordCredential = async (req, res, next) => {
 };
 
 const tokenValidations = async (req, res, next) => {
-  const { authorization } = req.headers;
   const { JWT_SECRET } = process.env;
-  if (!authorization) {
-    return res.status(401).json({ message: 'No token provided' });
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
   }
-  const confirmation = jsonWebToken.verifyToken(authorization, JWT_SECRET);
-  req.user = confirmation.user;
-  next();
+  try {
+    const decoded = jsonWebToken.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
 };
 
 module.exports = {
