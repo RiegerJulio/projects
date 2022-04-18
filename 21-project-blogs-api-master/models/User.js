@@ -4,12 +4,10 @@ module.exports = (sequelize, DataTypes) => {
       displayName: { type: DataTypes.STRING, allowNull: false },
       email: { type: DataTypes.STRING, allowNull: false, unique: true },
       password: { type: DataTypes.STRING, allowNull: false },
+      image: { type: DataTypes.STRING, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: false },
       updatedAt: { type: DataTypes.DATE, allowNull: false },
-  }, {
-    timestamps: false,
-    tableName: 'Users',
-  });
+  }, { timestamps: false, tableName: 'Users' });
   User.associate = (models) => {
     User.hasMany(models.Post, {
       foreignKey: 'userId',
