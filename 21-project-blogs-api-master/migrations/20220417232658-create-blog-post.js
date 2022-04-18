@@ -34,6 +34,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+    },{
+      timestamps: true,
+      createdAt: 'published',
+      updatedAt: 'updated',
     });
   },
 
