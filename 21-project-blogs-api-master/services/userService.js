@@ -1,6 +1,6 @@
 const jsonWebToken = require('jsonwebtoken');
 require('dotenv').config();
-const { User } = require('../models/User');
+const { User } = require('../models');
 
 const createUser = async (userInfo) => {
   const user = await User.create(userInfo);

@@ -5,7 +5,8 @@ require('dotenv');
 const validateName = (req, res, next) => {
   const { displayName } = req.body;
   if (displayName.length < 8) {
-    res.status(400).json({ message: '"displayName" must be at least 8 characters long' });
+    return res.status(400)
+      .json({ message: '"displayName" length must be at least 8 characters long' });
   }
   next();
 };
@@ -30,11 +31,11 @@ const validateEmail = async (req, res, next) => {
 
 const validatePassword = (req, res, next) => {
   const { password } = req.body;
-  if (password.length < 6) {
-    res.status(400).json({ message: '"password" must be at least 6 characters long' });
-  }
   if (!password) {
-    res.status(400).json({ message: '"password" is required' });
+    return res.status(400).json({ message: '"password" is required' });
+   }
+  if (password.length < 6) {
+    return res.status(400).json({ message: '"password" length must be 6 characters long' });
   }
   next();
 };

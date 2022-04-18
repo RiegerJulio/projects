@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       image: { type: DataTypes.STRING, allowNull: true },
   }, { timestamps: false, tableName: 'Users' });
   User.associate = (models) => {
-    User.hasMany(models.Post, {
+    User.hasMany(models.BlogPost, {
       foreignKey: 'userId',
       as: 'user',
     });
