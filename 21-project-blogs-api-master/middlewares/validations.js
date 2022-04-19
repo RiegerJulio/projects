@@ -79,6 +79,18 @@ const tokenValidations = async (req, res, next) => {
   }
 };
 
+const categoryValidations = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    if (name === undefined) {
+      return res.status(400).json({ message: '"name" is required' });
+    }
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
+};
+
 module.exports = {
   validateName,
   validateEmail,
@@ -86,4 +98,5 @@ module.exports = {
   checkEmailCredential,
   checkPasswordCredential,
   tokenValidations,
+  categoryValidations,
 };
