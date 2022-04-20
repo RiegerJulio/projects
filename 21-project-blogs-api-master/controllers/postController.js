@@ -1,17 +1,18 @@
 const postService = require('../services/postService');
+// const { Category } = require('../models');
 
 const createPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
-    const { id } = req.user;
-    const post = await postService.createPost(title, content, categoryIds, id);
-    res.status(201).json(post);
-    if (!title || !content) {
-      res.status(400).json({ error: 'Title and content are required' });
-    }
-    if (!categoryIds) {
-      res.status(400).json({ error: 'Category is required' });
-    }
+    // const { id } = req.user;
+    // const checkCategoryId = await Category.findAll({
+    //   where: { id: categoryIds },
+    // });
+    // if (checkCategoryId.length !== categoryIds.length) {
+    //   res.status(400).json({ error: '"categoryIds" not found' });
+    // }
+    const post = await postService.createPost(title, content, categoryIds);
+    res.status(200).json(post);
   } catch (error) {
     res.status(400).json({ error });
   }

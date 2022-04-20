@@ -1,15 +1,6 @@
 const { BlogPost, Category, User } = require('../models');
 
-const createPost = async (title, content, categoryIds, userId) => {
-  const checkCategoryId = await Category.findAll({
-    where: { id: categoryIds },
-  });
-  if (checkCategoryId.length !== categoryIds.length) {
-    return { error: 'Category not exists' };
-  }
-  if (!title || !content) {
-    return { error: 'Title and content are required' };
-  }
+const createPost = async (title, content, userId) => {
   const post = await BlogPost.create({ title, content, userId });
   return post;
 };

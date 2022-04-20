@@ -91,6 +91,55 @@ const categoryValidations = async (req, res, next) => {
   }
 };
 
+// eslint-disable-next-line complexity
+const postValidations = async (req, res, next) => {
+  try {
+    const { title, content } = req.body;
+    if (!title) {
+      return res.status(400).json({ message: '"title" is required' });
+    }
+    if (!content) {
+      return res.status(400).json({ message: '"content" is required' });
+    }
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
+};
+
+const postCategoryValidations = async (req, res, next) => {
+  try {
+    const { categoryIds } = req.body;
+    if (!categoryIds) {
+      return res.status(400).json({ message: '"categoryIds" is required' });
+    }
+    if (categoryIds) {
+      return res.status(400).json({ message: '"categoryIds" not found' });
+    }
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
+};
+
+// const editValidations = async (req, res, next) => {
+//   try {
+//     const { title, content, categoryId } = req.body;
+//     if (!title) {
+//       return res.status(400).json({ message: '"title" is required' });
+//     }
+//     if (!content) {
+//       return res.status(400).json({ message: '"content" is required' });
+//     }
+//     if (categoryId) {
+//       return res.status(400).json({ message: 'Categories cannot be edited' });
+//     }
+//     next();
+//   } catch (error) {
+//     return res.status(401).json({ error: error.message });
+//   }
+// };
+
 module.exports = {
   validateName,
   validateEmail,
@@ -99,4 +148,7 @@ module.exports = {
   checkPasswordCredential,
   tokenValidations,
   categoryValidations,
+  postValidations,
+  postCategoryValidations,
+  // editValidations,
 };

@@ -11,7 +11,7 @@ app.use(express.json());
 app.use('/user', userRoutes);
 app.use('/login', loginRoutes);
 app.use('/categories', categoryRoutes);
-app.use('/posts', postRoutes);
+app.use('/post', postRoutes);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
