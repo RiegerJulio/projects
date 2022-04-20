@@ -91,7 +91,6 @@ const categoryValidations = async (req, res, next) => {
   }
 };
 
-// eslint-disable-next-line complexity
 const postValidations = async (req, res, next) => {
   try {
     const { title, content } = req.body;
@@ -113,9 +112,10 @@ const postCategoryValidations = async (req, res, next) => {
     if (!categoryIds) {
       return res.status(400).json({ message: '"categoryIds" is required' });
     }
-    if (categoryIds) {
-      return res.status(400).json({ message: '"categoryIds" not found' });
-    }
+    // if (categoryIds) {
+    //   return res.status(400).json({ message: '"categoryIds" not found' });
+    // }
+
     next();
   } catch (error) {
     return res.status(401).json({ error: error.message });
