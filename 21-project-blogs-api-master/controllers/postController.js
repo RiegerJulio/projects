@@ -36,8 +36,14 @@ const getPostById = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, content, categoryIds } = req.body;
-    const post = await postService.updatePost(id, title, content, categoryIds);
+    const { categoryIds } = req.body;
+    if (categoryIds) {
+      return res.status(400).json({ message: 'Categories cannot be edited' });
+    }
+    const post = await postService.updatePost(req.body, req.user.id, id);
+    if (post.message) {
+      return res.status(401).json({ message: post.message });
+    }
     res.status(200).json(post);
   } catch (error) {
     res.status(400).json({ error });

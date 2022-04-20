@@ -122,23 +122,23 @@ const postCategoryValidations = async (req, res, next) => {
   }
 };
 
-// const editValidations = async (req, res, next) => {
-//   try {
-//     const { title, content, categoryId } = req.body;
-//     if (!title) {
-//       return res.status(400).json({ message: '"title" is required' });
-//     }
-//     if (!content) {
-//       return res.status(400).json({ message: '"content" is required' });
-//     }
-//     if (categoryId) {
-//       return res.status(400).json({ message: 'Categories cannot be edited' });
-//     }
-//     next();
-//   } catch (error) {
-//     return res.status(401).json({ error: error.message });
-//   }
-// };
+const editValidations = async (req, res, next) => {
+  try {
+    const { title, content, categoryId } = req.body;
+    if (!title) {
+      return res.status(400).json({ message: '"title" is required' });
+    }
+    if (!content) {
+      return res.status(400).json({ message: '"content" is required' });
+    }
+    if (categoryId) {
+      return res.status(400).json({ message: 'Categories cannot be edited' });
+    }
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
+};
 
 module.exports = {
   validateName,
@@ -150,5 +150,5 @@ module.exports = {
   categoryValidations,
   postValidations,
   postCategoryValidations,
-  // editValidations,
+  editValidations,
 };

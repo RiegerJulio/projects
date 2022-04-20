@@ -38,20 +38,18 @@ const getPostById = async (id) => {
   return post;
 };
 
-const updatePost = async (id, title, content, categoryId) => {
+const updatePost = async ({ title, content }, userId, id) => {
+  const post = await BlogPost.findOne({ where: { id } });
+  if (!post) {
+    return { message: 'Post does not exist' };
+  }
+  if (userId !== post.dataValues.userId) {
+    return { message: 'Unauthorized user' };
+  }
   await BlogPost.update(
     { title, content },
     { where: { id } },
   );
-  if (!id) {
-    return { error: 'Post not exists' };
-  }
-  if (!title || !content) {
-    return { error: 'Title and content are required' };
-  }
-  if (categoryId) {
-    return { error: 'Category cant be edited' };
-  }
   const postUpdated = await getPostById(id);
   return postUpdated;
 };
