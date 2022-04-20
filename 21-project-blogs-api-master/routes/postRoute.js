@@ -8,6 +8,6 @@ postRoutes.post('/', tokenValidations, postValidations,
 postRoutes.get('/', tokenValidations, postController.getAllPosts);
 postRoutes.get('/:id', tokenValidations, postController.getPostById);
 postRoutes.put('/:id', tokenValidations, editValidations, postController.updatePost);
-postRoutes.delete('/:id', postController.deletePost);
+postRoutes.delete('/:id', tokenValidations, postController.deletePost);
 
 module.exports = postRoutes;
