@@ -6,7 +6,12 @@ class ProductController {
 
   public getAllProducts = async (req: Request, res: Response) => {
     const products = await this.productService.getAllProducts();
-    res.json(products);
+    res.status(200).json(products);
+  };
+
+  public createProduct = async (req: Request, res: Response) => {
+    const product = await this.productService.createProduct(req.body);
+    res.status(201).json(product);
   };
 }
 
