@@ -7,7 +7,7 @@ export default class OrderModel {
   public async getAllOrders(): Promise<IOrder[]> {
     const [orders] = await this.db.execute(
       `SELECT ord.id, ord.userId, prod.id AS products FROM Trybesmith.Orders AS ord
-      INNER JOIN Trybesmit.Products AS prod ON prod.orderId = ord.id`,
+      INNER JOIN Trybesmith.Products AS prod ON prod.orderId = ord.id`,
     );
     return orders as IOrder[];
   }
