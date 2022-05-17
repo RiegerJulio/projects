@@ -1,5 +1,7 @@
-export interface ITokenInfos {
+interface ITokenInfos {
   id?: number;
   username: string;
   password: string;
 }
+
+export default ITokenInfos;

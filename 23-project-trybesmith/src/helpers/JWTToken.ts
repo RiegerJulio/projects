@@ -1,5 +1,5 @@
 import jwtToken, { SignOptions } from 'jsonwebtoken';
-import { ITokenInfos } from '../interfaces/jwt.interface';
+import ITokenInfos from '../interfaces/jwt.interface';
 
 export default class JWTToken {
   private SECRET = 'SEGREDAOHEINBICHO';
