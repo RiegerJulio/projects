@@ -1,4 +1,4 @@
-import { SimpleFighter } from '../../src/Fighter';
+import { SimpleFighter } from '../../src/Figther';
 import Monster from '../../src/Monster';
 
 const x = (y: SimpleFighter) => { };
