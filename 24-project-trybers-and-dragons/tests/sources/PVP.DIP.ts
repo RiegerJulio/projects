@@ -1,6 +1,6 @@
 import { PVP } from '../../src/Battle';
 import Character from '../../src/Character';
-import Fighter from '../../src/Fighter';
+import Fighter from '../../src/Figther';
 
 class F implements Fighter {
   constructor(
