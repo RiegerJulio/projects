@@ -1,4 +1,4 @@
-import Fighter from '../../src/Fighter';
+import Fighter from '../../src/Figther';
 import Character from '../../src/Character';
 
 const x = (y: Fighter) => { };

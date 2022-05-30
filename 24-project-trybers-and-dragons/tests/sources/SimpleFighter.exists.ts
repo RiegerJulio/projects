@@ -1,1 +1,1 @@
-import { SimpleFighter } from '../../src/Fighter';
+import { SimpleFighter } from '../../src/Figther';
