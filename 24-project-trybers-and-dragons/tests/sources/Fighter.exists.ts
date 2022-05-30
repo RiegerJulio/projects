@@ -1,1 +1,1 @@
-import Fighter from '../../src/Fighter';
+import Fighter from '../../src/Figther';
