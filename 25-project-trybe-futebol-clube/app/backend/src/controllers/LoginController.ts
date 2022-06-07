@@ -17,6 +17,9 @@ export default class LoginController {
 
   static async validateRole(req: Request, res: Response): Promise<Response | void> {
     const token = req.headers.authorization;
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
     const user = await LoginService.validateRole(token as string);
     return res.status(200).json(user.role);
   }
