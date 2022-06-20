@@ -2,6 +2,7 @@ import * as express from 'express';
 import LoginRoutes from './routes/LoginRoutes';
 import TeamRoutes from './routes/TeamRoutes';
 import MatchRoutes from './routes/MatchRoutes';
+import LeaderboardRoutes from './routes/LeaderboardRoutes';
 
 class App {
   public app: express.Express;
@@ -34,9 +35,11 @@ class App {
     const login = new LoginRoutes();
     const team = new TeamRoutes();
     const match = new MatchRoutes();
+    const leaderboard = new LeaderboardRoutes();
     this.app.use('/login', login.router);
-    this.app.use('/team', team.router);
-    this.app.use('/match', match.router);
+    this.app.use('/teams', team.router);
+    this.app.use('/matches', match.router);
+    this.app.use('/leaderboard', leaderboard.router);
   }
 }
 

@@ -9,7 +9,6 @@ export default class TeamService {
 
   static async getAllTeams(): Promise<ITeam[]> {
     const teams = await TeamsModel.findAll();
-    console.log(teams);
     return teams as ITeam[];
   }
 }
