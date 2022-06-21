@@ -6,11 +6,11 @@ export default class MatchMiddleware {
   Promise <Response | void> {
     const { homeTeam, awayTeam } = req.body;
     if (homeTeam === awayTeam) {
-      return res.status(401).json({ message: 'Home and away team cannot be the same' });
+      return res.status(404).json({ message: 'Home and away team cannot be the same' });
     }
     const getTeamById = await TeamService.getTeamById(homeTeam || awayTeam);
     if (!getTeamById) {
-      return res.status(401).json({ message: 'Incorrect team id' });
+      return res.status(404).json({ message: 'There is no team with such id!' });
     }
     next();
   }
