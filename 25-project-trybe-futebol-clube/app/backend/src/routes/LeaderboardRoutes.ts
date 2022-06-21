@@ -10,8 +10,8 @@ export default class LeaderboardRoutes {
   }
 
   private config(): void {
-    this.router.get('/', LeaderboardController.getLeaderboard);
-    this.router.get('/home', LeaderboardController.getLeaderboard);
-    this.router.get('/away', LeaderboardController.getLeaderboard);
+    this.router.get('/', LeaderboardController.getAll);
+    this.router.get('/home', LeaderboardController.getAllHome);
+    this.router.get('/away', LeaderboardController.getAllAway);
   }
 }

@@ -21,7 +21,7 @@ export default class MatchController {
     try {
       const match = await MatchService.createMatch(req.body);
       if (!match) {
-        return res.status(401).json({ message: 'Incor1rect of invalid matchs' });
+        return res.status(401).json({ message: 'Incorrect of invalid matchs' });
       }
       return res.status(201).json(match);
     } catch (error) {

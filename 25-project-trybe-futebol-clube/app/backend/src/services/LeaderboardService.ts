@@ -1,37 +1,69 @@
+import ITeam from '../interfaces/ITeam';
 import MatchesModel from '../database/models/MatchesModel';
 import TeamsModel from '../database/models/TeamsModel';
 import ILeaderboard from '../interfaces/ILeaderboard';
+import IMatch from '../interfaces/IMatch';
 import LeaderboardHelper from '../helpers/LeaderboardHelper';
 
 export default class LeaderboardService {
-  public static async getMatchData(id: number, name: string) {
-    const allMatches = await MatchesModel.findAll({
-      where: { homeTeam: id, inProgress: false },
+  public static leaderboardTeams(teams: ITeam[]) {
+    const leaderboard: ILeaderboard[] = [];
+    teams.forEach((team) => {
+      leaderboard.push({
+        name: team.teamName,
+        totalPoints: 0,
+        totalGames: 0,
+        totalVictories: 0,
+        totalDraws: 0,
+        totalLosses: 0,
+        goalsFavor: 0,
+        goalsOwn: 0,
+        goalsBalance: 0,
+        efficiency: 0,
+      });
     });
-
-    const goalsData = LeaderboardHelper.goalsData(allMatches);
-    const matchData = LeaderboardHelper.matchData(allMatches);
-    const totalGames = allMatches.length;
-    const efficiency = Number(((matchData.totalPoints / (totalGames * 3)) * 100).toFixed(2));
-
-    const matchFormat = {
-      name,
-      ...matchData,
-      ...goalsData,
-      goalsBalance: goalsData.goalsFavor - goalsData.goalsOwn,
-      efficiency,
-      totalGames,
-    };
-
-    return matchFormat;
+    return leaderboard;
   }
 
-  public static async getLeaderboard(): Promise<ILeaderboard[]> {
-    const allTeams = await TeamsModel.findAll();
-    const teamsMap = await Promise.all(allTeams.map((teams) =>
-      LeaderboardService.getMatchData(teams.id, teams.teamName)));
-    const sortTeams = LeaderboardHelper.sortLeaderboard(teamsMap);
+  public static getAllHome = async () => {
+    const matches = await MatchesModel.findAll({
+      where: { inProgress: false },
+      include: [{ model: TeamsModel, as: 'teamHome' }],
+    }) as unknown as IMatch[];
+    const teams = await TeamsModel.findAll();
+    const leaderboard = this.leaderboardTeams(teams);
+    LeaderboardHelper.addWinHome(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addDrawHome(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addLoseHome(this.leaderboardTeams(teams), matches);
+    return LeaderboardHelper.sortLeaderboard(leaderboard);
+  };
 
-    return sortTeams;
-  }
+  public static getAllAway = async () => {
+    const matches = await MatchesModel.findAll({
+      where: { inProgress: false },
+      include: [{ model: TeamsModel, as: 'teamAway' }],
+    }) as unknown as IMatch[];
+    const teams = await TeamsModel.findAll();
+    const leaderboard = this.leaderboardTeams(teams);
+    LeaderboardHelper.addWinAway(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addDrawAway(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addLoseAway(this.leaderboardTeams(teams), matches);
+    return LeaderboardHelper.sortLeaderboard(leaderboard);
+  };
+
+  public static getAll = async () => {
+    const matches = await MatchesModel.findAll({
+      where: { inProgress: false },
+      include: [{ model: TeamsModel, as: 'teamHome' }, { model: TeamsModel, as: 'teamAway' }],
+    }) as unknown as IMatch[];
+    const teams = await TeamsModel.findAll();
+    const leaderboard = this.leaderboardTeams(teams);
+    LeaderboardHelper.addWinHome(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addWinAway(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addDrawHome(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addDrawAway(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addLoseHome(this.leaderboardTeams(teams), matches);
+    LeaderboardHelper.addLoseAway(this.leaderboardTeams(teams), matches);
+    return LeaderboardHelper.sortLeaderboard(leaderboard);
+  };
 }
