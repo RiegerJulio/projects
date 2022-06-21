@@ -1,137 +1,132 @@
-import ILeaderboard from '../interfaces/ILeaderboard';
 import IMatch from '../interfaces/IMatch';
+import ILeaderboard from '../interfaces/ILeaderboard';
 
 export default class LeaderboardHelper {
-  // public static sortLeaderboard(data: ILeaderboard[]) {
-  //   data.sort((a, b) => b.totalPoints - a.totalPoints
-  //   || b.goalsBalance - a.goalsBalance
-  //   || b.goalsFavor - a.goalsFavor
-  //   || b.goalsOwn - a.goalsOwn);
-  // }
-
   public static sortLeaderboard(data: ILeaderboard[]) {
-    data.sort((a, b) => {
-      if (a.totalPoints > b.totalPoints) return -1;
-      if (a.totalPoints < b.totalPoints) return 1;
-      if (a.goalsBalance > b.goalsBalance) return -1;
-      if (a.goalsBalance < b.goalsBalance) return 1;
-      if (a.totalVictories > b.totalVictories) return -1;
-      if (a.totalVictories < b.totalVictories) return 1;
-      if (a.goalsFavor > b.goalsFavor) return -1;
-      if (a.goalsFavor < b.goalsFavor) return 1;
-      if (a.goalsOwn > b.goalsOwn) return -1;
-      if (a.goalsOwn < b.goalsOwn) return 1;
-      return 0;
-    });
+    data.sort((a, b) =>
+      b.totalPoints - a.totalPoints
+      || b.goalsBalance - a.goalsBalance
+      || b.goalsFavor - a.goalsFavor
+      || b.goalsOwn - a.goalsOwn);
+    return data;
   }
 
-  public static addWinHome = (data: ILeaderboard[], matchs: IMatch[]) => {
-    data.forEach((team) => {
-      const tm = team;
-      matchs.forEach((match) => {
-        if (match.teamHome.teamName === team.name && match.homeTeamGoals > match.awayTeamGoals) {
-          tm.totalPoints += 3;
-          tm.totalGames += 1;
-          tm.totalVictories += 1;
-          tm.goalsFavor += match.homeTeamGoals;
-          tm.goalsOwn += match.awayTeamGoals;
-          // talvez +=
-          tm.goalsBalance = match.homeTeamGoals - match.awayTeamGoals;
-          tm.efficiency = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-        }
-      });
-    });
-  };
+  public static addTotalPoints(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      return data.reduce((acc, curr) => {
+        if (curr.homeTeamGoals > curr.awayTeamGoals) {
+          return acc + 3;
+        } if (curr.homeTeamGoals === curr.awayTeamGoals) {
+          return acc + 1;
+        } return acc;
+      }, 0);
+    }
+    return data.reduce((acc, curr) => {
+      if (curr.homeTeamGoals < curr.awayTeamGoals) {
+        return acc + 3;
+      } if (curr.homeTeamGoals === curr.awayTeamGoals) {
+        return acc + 1;
+      } return acc;
+    }, 0);
+  }
 
-  public static addWinAway = (data: ILeaderboard[], matchs: IMatch[]) => {
-    data.forEach((team) => {
-      const tm = team;
-      matchs.forEach((match) => {
-        if (match.teamAway.teamName === team.name && match.homeTeamGoals < match.awayTeamGoals) {
-          tm.totalPoints += 3;
-          tm.totalGames += 1;
-          tm.totalVictories += 1;
-          tm.goalsFavor += match.awayTeamGoals;
-          tm.goalsOwn += match.homeTeamGoals;
-          // talvez +=
-          tm.goalsBalance = match.awayTeamGoals - match.homeTeamGoals;
-          tm.efficiency = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-        }
-      });
-    });
-  };
+  public static addTotalGames(data: IMatch[]) {
+    return data.length;
+  }
 
-  public static addDrawHome = (data: ILeaderboard[], matchs: IMatch[]) => {
-    data.forEach((team) => {
-      const tm = team;
-      matchs.forEach((match) => {
-        if (match.teamHome.teamName === team.name && match.homeTeamGoals === match.awayTeamGoals) {
-          tm.totalPoints += 1;
-          tm.totalGames += 1;
-          tm.totalDraws += 1;
-          tm.goalsFavor += match.homeTeamGoals;
-          tm.goalsOwn += match.awayTeamGoals;
-          tm.efficiency = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-        }
-      });
-    });
-  };
+  public static addTotalVictories(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      return data.filter((match) => match.homeTeamGoals > match.awayTeamGoals).length;
+    } return data.filter((match) => match.homeTeamGoals < match.awayTeamGoals).length;
+  }
 
-  public static addDrawAway = (data: ILeaderboard[], matchs: IMatch[]) => {
-    data.forEach((team) => {
-      const tm = team;
-      matchs.forEach((match) => {
-        if (match.teamAway.teamName === team.name && match.homeTeamGoals === match.awayTeamGoals) {
-          tm.totalPoints += 1;
-          tm.totalGames += 1;
-          tm.totalDraws += 1;
-          tm.goalsFavor += match.awayTeamGoals;
-          tm.goalsOwn += match.homeTeamGoals;
-          tm.efficiency = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-        }
-      });
-    });
-  };
+  public static addTotalDraws(data: IMatch[]) {
+    return data.filter((match) => match.homeTeamGoals === match.awayTeamGoals).length;
+  }
 
-  public static addLoseHome = (data: ILeaderboard[], matchs: IMatch[]) => {
-    data.forEach((team) => {
-      const tm = team;
-      matchs.forEach((match) => {
-        if (match.teamHome.teamName === team.name && match.homeTeamGoals < match.awayTeamGoals) {
-          tm.totalGames += 1;
-          tm.totalLosses += 1;
-          tm.goalsFavor += match.homeTeamGoals;
-          tm.goalsOwn += match.awayTeamGoals;
-          tm.goalsBalance = match.homeTeamGoals - match.awayTeamGoals;
-          tm.efficiency = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-        }
-      });
-    });
-  };
+  public static addTotalLosses(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      return data.filter((match) => match.homeTeamGoals < match.awayTeamGoals).length;
+    } return data.filter((match) => match.homeTeamGoals > match.awayTeamGoals).length;
+  }
 
-  public static addLoseAway = (data: ILeaderboard[], matchs: IMatch[]) => {
-    data.forEach((team) => {
-      const tm = team;
-      matchs.forEach((match) => {
-        if (match.teamAway.teamName === team.name && match.homeTeamGoals > match.awayTeamGoals) {
-          tm.totalGames += 1;
-          tm.totalLosses += 1;
-          tm.goalsFavor += match.awayTeamGoals;
-          tm.goalsOwn += match.homeTeamGoals;
-          tm.goalsBalance = match.awayTeamGoals - match.homeTeamGoals;
-          tm.efficiency = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-        }
-      });
-    });
-  };
+  public static addGoalsFavor(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      return data.reduce((acc, curr) => acc + curr.homeTeamGoals, 0);
+    } return data.reduce((acc, curr) => acc + curr.awayTeamGoals, 0);
+  }
 
-  // public static leaderboardHome = (matchs: IMatch[]) => {
-  //   let leaderboard = [] as ILeaderboard[];
-  //   matchs.forEach((match) => {
-  //     const teamHome = match.teamHome.teamName;
-  //     const { homeTeamGoals, awayTeamGoals } = match;
-  //     if ( homeTeamGoals > awayTeamGoals ) {
-  //       leaderboard = this.addWinHome(leaderboard, matchs);}
-  //     }
-  //   }
+  public static addGoalsOwn(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      return data.reduce((acc, curr) => acc + curr.awayTeamGoals, 0);
+    } return data.reduce((acc, curr) => acc + curr.homeTeamGoals, 0);
+  }
+
+  public static addGoalsBalance(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      return LeaderboardHelper.addGoalsFavor(data, 'home')
+      - LeaderboardHelper.addGoalsOwn(data, 'home');
+    } return LeaderboardHelper.addGoalsFavor(data, 'away')
+    - LeaderboardHelper.addGoalsOwn(data, 'away');
+  }
+
+  public static addEfficiency(data: IMatch[], homeOrAway: string) {
+    if (homeOrAway === 'home') {
+      const totalPoints = LeaderboardHelper.addTotalPoints(data, 'home');
+      const totalGames = LeaderboardHelper.addTotalGames(data);
+      return Number(((totalPoints / (totalGames * 3)) * 100).toFixed(2));
+    }
+    const totalPoints = LeaderboardHelper.addTotalPoints(data, 'away');
+    const totalGames = LeaderboardHelper.addTotalGames(data);
+    return Number(((totalPoints / (totalGames * 3)) * 100).toFixed(2));
+  }
+
+  public static addLeaderboardHome(data: IMatch[]) {
+    return {
+      totalPoints: LeaderboardHelper.addTotalPoints(data, 'home'),
+      totalGames: LeaderboardHelper.addTotalGames(data),
+      totalVictories: LeaderboardHelper.addTotalVictories(data, 'home'),
+      totalDraws: LeaderboardHelper.addTotalDraws(data),
+      totalLosses: LeaderboardHelper.addTotalLosses(data, 'home'),
+      goalsFavor: LeaderboardHelper.addGoalsFavor(data, 'home'),
+      goalsOwn: LeaderboardHelper.addGoalsOwn(data, 'home'),
+      goalsBalance: LeaderboardHelper.addGoalsBalance(data, 'home'),
+      efficiency: LeaderboardHelper.addEfficiency(data, 'home'),
+    };
+  }
+
+  public static addLeaderboardAway(data: IMatch[]) {
+    return {
+      totalPoints: LeaderboardHelper.addTotalPoints(data, 'away'),
+      totalGames: LeaderboardHelper.addTotalGames(data),
+      totalVictories: LeaderboardHelper.addTotalVictories(data, 'away'),
+      totalDraws: LeaderboardHelper.addTotalDraws(data),
+      totalLosses: LeaderboardHelper.addTotalLosses(data, 'away'),
+      goalsFavor: LeaderboardHelper.addGoalsFavor(data, 'away'),
+      goalsOwn: LeaderboardHelper.addGoalsOwn(data, 'away'),
+      goalsBalance: LeaderboardHelper.addGoalsBalance(data, 'away'),
+      efficiency: LeaderboardHelper.addEfficiency(data, 'away'),
+    };
+  }
+
+  public static addLeaderboard(homeData: ILeaderboard, awayData: ILeaderboard) {
+    return {
+      totalPoints: homeData.totalPoints + awayData.totalPoints,
+      totalGames: homeData.totalGames + awayData.totalGames,
+      totalVictories: homeData.totalVictories + awayData.totalVictories,
+      totalDraws: homeData.totalDraws + awayData.totalDraws,
+      totalLosses: homeData.totalLosses + awayData.totalLosses,
+      goalsFavor: homeData.goalsFavor + awayData.goalsFavor,
+      goalsOwn: homeData.goalsOwn + awayData.goalsOwn,
+      goalsBalance: homeData.goalsBalance + awayData.goalsBalance,
+      efficiency: Number((((homeData.totalPoints + awayData.totalPoints)
+        / ((homeData.totalGames + awayData.totalGames) * 3)) * 100).toFixed(2)),
+    };
+  }
+
+  public static createFilterId(data: IMatch[], homeOrAway: string, id: number) {
+    if (homeOrAway === 'home') {
+      return data.filter((match) => match.homeTeam === id);
+    } return data.filter((match) => match.awayTeam === id);
+  }
 }

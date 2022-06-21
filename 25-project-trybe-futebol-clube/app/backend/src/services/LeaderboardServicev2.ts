@@ -3,7 +3,7 @@ import MatchesModel from '../database/models/MatchesModel';
 import TeamsModel from '../database/models/TeamsModel';
 import ILeaderboard from '../interfaces/ILeaderboard';
 import IMatch from '../interfaces/IMatch';
-import LeaderboardHelper from '../helpers/LeaderboardHelper';
+import LeaderboardHelper from '../helpers/LeaderboardHelperv2';
 
 export default class LeaderboardService {
   public static leaderboardTeams(teams: ITeam[]) {
@@ -32,9 +32,10 @@ export default class LeaderboardService {
     }) as unknown as IMatch[];
     const teams = await TeamsModel.findAll();
     const leaderboard = this.leaderboardTeams(teams);
-    LeaderboardHelper.addWinHome(this.leaderboardTeams(teams), matches);
-    LeaderboardHelper.addDrawHome(this.leaderboardTeams(teams), matches);
-    LeaderboardHelper.addLoseHome(this.leaderboardTeams(teams), matches);
+    console.log(leaderboard);
+    LeaderboardHelper.addWinHome(leaderboard, matches);
+    LeaderboardHelper.addDrawHome(leaderboard, matches);
+    LeaderboardHelper.addLoseHome(leaderboard, matches);
     return LeaderboardHelper.sortLeaderboard(leaderboard);
   };
 
@@ -45,6 +46,7 @@ export default class LeaderboardService {
     }) as unknown as IMatch[];
     const teams = await TeamsModel.findAll();
     const leaderboard = this.leaderboardTeams(teams);
+    console.log(leaderboard);
     LeaderboardHelper.addWinAway(this.leaderboardTeams(teams), matches);
     LeaderboardHelper.addDrawAway(this.leaderboardTeams(teams), matches);
     LeaderboardHelper.addLoseAway(this.leaderboardTeams(teams), matches);
@@ -58,6 +60,7 @@ export default class LeaderboardService {
     }) as unknown as IMatch[];
     const teams = await TeamsModel.findAll();
     const leaderboard = this.leaderboardTeams(teams);
+    console.log(leaderboard);
     LeaderboardHelper.addWinHome(this.leaderboardTeams(teams), matches);
     LeaderboardHelper.addWinAway(this.leaderboardTeams(teams), matches);
     LeaderboardHelper.addDrawHome(this.leaderboardTeams(teams), matches);

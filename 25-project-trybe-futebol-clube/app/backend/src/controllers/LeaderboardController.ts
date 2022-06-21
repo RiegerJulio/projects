@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import LeaderboardService from '../services/LeaderboardService';
+import LeaderboardService from '../services/LeaderboardServicev2';
 
 const ERROR = 'internal server error';
 

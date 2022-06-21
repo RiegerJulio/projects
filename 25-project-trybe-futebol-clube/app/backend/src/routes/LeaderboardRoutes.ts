@@ -1,5 +1,5 @@
 import * as express from 'express';
-import LeaderboardController from '../controllers/LeaderboardControllerOld';
+import LeaderboardController from '../controllers/LeaderboardController';
 
 export default class LeaderboardRoutes {
   public router: express.Router;
@@ -10,8 +10,8 @@ export default class LeaderboardRoutes {
   }
 
   private config(): void {
-    this.router.get('/', LeaderboardController.getLeaderboard);
-    // this.router.get('/home', LeaderboardController.getAllHome);
-    // this.router.get('/away', LeaderboardController.getAllAway);
+    this.router.get('/', LeaderboardController.getAll);
+    this.router.get('/home', LeaderboardController.getAllHome);
+    this.router.get('/away', LeaderboardController.getAllAway);
   }
 }
