@@ -8,14 +8,15 @@ const carSchema = new mongoose.Schema<CarDocument>({
   model: String,
   year: Number,
   color: String,
-  status: Boolean,
   buyValue: Number,
   doorsQty: Number,
   seatsQty: Number,
-});
+}, { versionKey: false });
 
 export default class CarModel extends MongoModel<Car> {
   constructor(model = mongoose.model('Cars', carSchema)) {
     super(model);
   }
 }
+
+// Version Key REF https://stackoverflow.com/questions/13699784/mongoose-v-property-hide

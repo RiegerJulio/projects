@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const vehicleSchema = z.object({
+export const vehicleSchema = z.object({
   model: z.string({
     required_error: 'Vehicle must have model',
     invalid_type_error: 'Vehicle model must be a string',
