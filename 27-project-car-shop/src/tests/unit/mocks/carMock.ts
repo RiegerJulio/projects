@@ -32,4 +32,5 @@ export const invalidCarRequisitionMock = {
   color: 'Red',
   buyValue: 10000,
   seatsQty: 5,
+  doorsQty: 900,
 }
