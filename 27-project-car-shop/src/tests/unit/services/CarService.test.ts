@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import CarService from '../../../services/CarService';
-import { carMock, carMockReturn, invalidCarRequisitionMock } from '../mocks/carMock';
+import { carMock, carMockReturn, invalidCarRequisitionMock, arrayOfCarsMock } from '../mocks/carMock';
 
 describe('Testing CarService layer', () => {
 
@@ -31,7 +31,7 @@ describe('Testing CarService layer', () => {
 
   describe('testing read service', async () => {
     before(() => {
-      sinon.stub(carService.model, 'read').resolves(carMockReturn as any);
+      sinon.stub(carService.model, 'read').resolves(arrayOfCarsMock);
     });
 
     after(() => {
@@ -40,7 +40,7 @@ describe('Testing CarService layer', () => {
 
     it('should read all cars', async () => {
       const result = await carService.read();
-      expect(result).to.be.deep.equal(carMockReturn);
+      expect(result).to.be.deep.equal(arrayOfCarsMock);
     });
   });
 

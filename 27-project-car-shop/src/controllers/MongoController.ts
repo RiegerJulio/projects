@@ -22,7 +22,7 @@ export default abstract class Controller<T> {
 
   protected errors = ControllerErrors;
 
-  constructor(protected service: Service<T>) {}
+  constructor(public service: Service<T>) {}
 
   abstract create(
     req: RequestWithBody<T>,
@@ -35,7 +35,7 @@ export default abstract class Controller<T> {
   ): Promise<typeof res> => {
     try {
       const data = await this.service.read();
-      return res.json(data);
+      return res.status(200).json(data);
     } catch (error) {
       return res.status(500).json({ error: this.errors.internal });
     }

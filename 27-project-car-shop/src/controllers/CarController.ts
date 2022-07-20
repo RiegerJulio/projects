@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import Controller, { RequestWithBody, ResoponseError } from './MongoController';
 import { Car } from '../interfaces/CarInterface';
 import CarService from '../services/CarService';
@@ -37,7 +37,7 @@ export default class CarController extends Controller<Car> {
   };
 
   readOne = async (
-    req: Request<{ id: string }>,
+    req: RequestWithBody<Car>,
     res: Response<Car | ResoponseError>,
   ): Promise<typeof res> => {
     try {
@@ -76,7 +76,7 @@ export default class CarController extends Controller<Car> {
   };
 
   delete = async (
-    req: Request<{ id: string }>,
+    req: RequestWithBody<Car>,
     res: Response<Car | ResoponseError>,
   ): Promise<typeof res> => {
     try {
